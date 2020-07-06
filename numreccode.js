@@ -164,6 +164,7 @@ function draw()
     ctx.fillStyle = 'black';
     ctx.fillText('Erase', 640, 50);
     ctx.fillText('Paint', 640, 110);
+
     //Check if the mouse hits the buttons
     if (clicking)
     {
@@ -197,12 +198,18 @@ function draw()
             ctx.fillRect(p.x, p.y, 20, 20);
         }
     }
-
+    //Drawing the dotted lines
+    ctx.fillStyle = 'white';
+    ctx.fillRect(100, 100, 1, 360);
+    ctx.fillRect(100, 460, 360, 1);
+    ctx.fillRect(100, 100, 360, 1);
+    ctx.fillRect(460, 100, 1, 360);
     //Drawing the circle around the mouse
     if (mouseX < 560)
     {
         let rad = mode ? 30 : 150;
         ctx.beginPath();
+        ctx.setLineDash([1, 0]);
         ctx.arc(mouseX, mouseY, rad, 0, 2 * Math.PI, false);
         ctx.lineWidth = 2;
         ctx.strokeStyle = mode ? '#FFFFFF' : '#FF0000';
@@ -227,4 +234,4 @@ function draw()
     textspace++;
 }
 
-let start = setInterval(draw, 1);
+let start = setInterval(draw, 10);
