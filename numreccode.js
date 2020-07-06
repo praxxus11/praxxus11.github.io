@@ -234,4 +234,4 @@ function draw()
     textspace++;
 }
 
-let start = setInterval(draw, 10);
+let start = setInterval(draw, 1);
