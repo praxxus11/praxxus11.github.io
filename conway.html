@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Conways Game of life</title>
+    </head>
+    <body>
+        <div style='text-align:center;'>
+            <h1>
+                Welcome to Conway's game of life.
+            </h1>
+            <h3>The rules are simple:</h3> 
+            <h5 style='line-height:0px;'>a live cell with less than 2 or more than 3 neighbors dies.</h5>
+            <h5>a dead cell with exactly 3 neighbors becomes alive.</h5>
+        </div>
+    </body>
+    <div id='canm'>
+        <!-- This is for changing the layout of the canvas -->
+        <script>
+            let pixels = 0
+            let wid = 0;
+            let hei = 0;
+            function done()
+            {
+                startup(pixels, wid, hei);
+                document.getElementById('canm').remove();
+            }
+            function changePix()
+            {
+                pixels = document.getElementById('canvas_create').value;
+                edit();
+            }
+            function changeWid()
+            {
+                wid = document.getElementById('canvas_create').value;
+                edit()
+            }
+            function changeHei()
+            {
+                hei = document.getElementById('canvas_create').value;
+                edit()
+            }
+            function edit()
+            {
+                document.getElementById('can').width = pixels * wid;
+                document.getElementById('can').height = pixels * hei;
+            }
+        </script>
+        <h3>Enter the blocks wide, tall, and size of blocks:</h3>
+        <input id='canvas_create' placeholder="Type in val and click button"></input>
+        <button onclick='changePix()'>Pixels per block</button>
+        <button onclick='changeWid()'>Blocks wide</button>
+        <button onclick='changeHei()'>Blocks tall</button>
+        <br><br>
+        <button onclick='done()' style='height:30px;width:200px;background-color:greenyellow;'>Done</button>
+    </div>
+    <br>
+    <div>
+        <canvas id='can' width='0' height='0' style="border:1px solid #000000;"></canvas>
+    </div>
+    <div id='loadin' style='visibility:hidden'>
+        <!-- Creating the options for the load in Only visible when dynamic pixels active -->
+        <button style='background-color:rgba(255, 0, 0, 0.384)' onclick='clr()'>Clear</button>
+        <button onclick='makeRandom()'>Random</button>
+        <button onclick='glider()'>Glider</button>
+        <button onclick='gosper()'>Gosper glider gun</button>
+        <br>
+        <button onclick='doubleEngine()'>B52 glider gun</button>
+        <button onclick='P246()'>P46 glider gun</button>
+    </div>
+    <!-- Hold the iteration counter -->
+    <p id='iternum'></p>
+    <div id='setfps' style='visibility:hidden;'>
+        <!-- Slider to control fps -->
+        <input type="range" id="fps"
+        min="0" max="200" step='1'>
+        <label id='refreshrate' for="fps"></label>
+    </div>
+    <script src='Conways_game.js'></script>
+</html>
