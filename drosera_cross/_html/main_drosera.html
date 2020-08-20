@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+                            <!-- _
+                          .' `'.__
+                         /      \ `'"-,
+        .-''''--...__..-/ .     |      \
+      .'               ; :'     '.  a   |
+     /                 | :.       \     =\
+    ;                   \':.      /  ,-.__;.-;`
+   /|     .              '--._   /-.7`._..-;`
+  ; |       '                |`-'      \  =|
+  |/\        .   -' /     /  ;         |  =/
+  (( ;.       ,_  .:|     | /     /\   | =|
+   ) / `\     | `""`;     / |    | /   / =/
+     | ::|    |      \    \ \    \ `--' =/
+    /  '/\    /       )    |/     `-...-`
+   /    | |  `\    /-'    /;
+   \  ,,/ |    \   D    .'  \
+    `""`   \    \  D_.-'\...,
+            `"""` 
+Elephant -->
+<html lang='en-US'>
+    <head>
+        <title>Hybrid Viability Tool</title>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="sundew, polyploid, hybrids, drosera">
+        <meta name="description" content="Drosera hybrids viability tool">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Eric Huang">
+        <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+        <link href="../_css/button_styles.css" rel="stylesheet" type="text/css">
+        <link href="../_css/desc.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Coda">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Yellowtail">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src='../_javascript/show_selected_crosses.js'></script>
+        <script src='../_javascript/make_all_species_options.js'></script>
+        <script src='../_javascript/clear_fields.js'></script>
+        <script src='../_javascript/calculate_percentage.js'></script>
+    </head>
+    <body style='overflow-y: scroll; margin:0px'>
+        <div style='background-color: rgb(255, 236, 236); padding-bottom: 10%'>
+            <h1 class=title_style style='font-family: Coda;'>Hybrid Viability Tool</h1>
+            <p class='description'>
+                This tool uses data from the ICPS 
+                <a href='https://www.carnivorousplants.org/cp/evolution/DroseraChromosomes' target='_blank' class='goto'><i>Drosera</i> genetics page</a>
+                to make a prediction. Based on the approximate chromosome count, ploidy, and approximate classification of two <i>Drosera</i> species,
+                it creates a probablity model of offspring success.
+                <br><br>
+                Since the tool relies only on these two factors, it may not be completely accurate in its prediction. However, 
+                it does provide a rough baseline for seed viability. I am confident that it will rule out species that 
+                are guaranteeded to produce sterile seeds, such as a cross between odd-ploidy species.
+                <br><br>
+                Simply enter two species into the boxes below and click on <i>predict</i>.
+            </p>
+            <datalist id="species_avail"></datalist>
+            <div class=left_choose>
+                <div style='margin: 3%'>
+                    <span style='font-family: coda; font-size: 24px;'>Drosera</span>
+                    <input class='enter_species' type='text' id='left_input' list='species_avail' placeholder='Enter Here'>
+                    <button class='clear_button' id='clear_left'>Clear</button>
+                </div>
+            </div>
+            <div class=right_choose>
+                <div style='margin: 3%'>
+                    <span style='font-family: coda; font-size: 24px'>Drosera</span>
+                    <input class='enter_species' type='text' id='right_input' list='species_avail' placeholder='Enter Here'>
+                    <button class='clear_button' id='clear_right'>Clear</button>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br>
+            <div style='text-align:center; font-family: coda; font-size: 30px;'>
+                <span>D.</span>
+                <span id='left_show'>Left Parent</span>
+                <span class='cross_x'>x</span>
+                <span>D.</span>
+                <span id='right_show'>Right Parent</span>
+            </div>
+            &nbsp;&nbsp; 
+            <div style='text-align: center'>
+                <button class='submit_button' id='submit_button'>Submit</button>
+            </div>
+            <br>
+            <div class='arrow' id='arrow1'>
+            </div>
+            <br>
+            <div class='arrow' id='arrow2'>
+            </div>
+            <div class='arrow' id='arrow3' style='margin-bottom: 2%;'>
+            </div>
+            <div>
+                <p id='results'>
+                    %
+                </p>
+            </div>
+        </div>
+        <foooter class='footer'>
+            <br>
+            <span>Created By <a class='goto' href='https://github.com/praxxus11' target='_blank'>Eric Huang</a></span><br>
+            <span>This tool is provided "as is," with all faults, defects, bugs, and errors.</span>
+            <span>No warranty of any kind, express or implied.</span>
+        </foooter>
+    </body>
+</html>

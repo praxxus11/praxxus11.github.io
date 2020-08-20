@@ -1,0 +1,99 @@
+.title_style {
+    margin: auto;
+    position: relative;
+    text-align: center;
+    width: 60%;
+    font-size: 400%;
+    color: rgba(41, 41, 41, 0.753);
+    border-radius: 15px;
+    background: linear-gradient(
+        rgba(255, 199, 199, 0.39),
+        rgba(255, 235, 235, 0.699)),
+        url("../assets/droserabk.jpg");
+    background-position-y: center;
+}
+
+.left_choose {
+    margin: 3% 1.5% 1% 3%;
+    float: left;
+    position: relative;
+    width: 43%;
+    background-color: rgb(255, 220, 220);
+    border-radius: 10px;
+}
+
+.right_choose {
+    margin: 3% 3% 1% 1.5%;
+    float: right;
+    position: relative;
+    width: 43%;
+    background-color: rgb(255, 220, 220); 
+    border-radius: 10px;
+}
+
+.cross_x {
+    font-family: Yellowtail; 
+    margin-right: 0.5%;
+    margin-left: 0.5%; 
+    font-size: 34px;
+    color: rgb(255, 128, 128);
+}
+
+.enter_species {
+    background-color: rgb(255, 245, 245);
+    height: 24px;
+    border-width: 3px;
+    border-color: rgb(255, 194, 194);
+    outline: none;
+    border-radius: 10px;
+}
+
+.footer {
+    position: absolute;
+    bottom: -20;
+    width: 100%;
+    height: 10%;
+    background-color: rgb(255, 194, 194);
+    color: rgb(20, 20, 20);;
+}
+
+.goto:link {
+    color: rgb(151, 98, 98);
+    text-decoration: none;
+}
+.goto:visited {
+    color: rgb(151, 98, 98)
+}
+.goto:hover {
+    color: rgb(255, 124, 124)
+}
+.goto:active {
+    color: rgb(224, 26, 26)
+}
+
+#results {
+    width: 18%;
+    margin: auto;
+    text-align: center;
+    font-size: 100px;
+    font-family: Share;
+    color: rgba(27, 1, 1, 0.774);
+    background-image: linear-gradient(48deg, rgba(255, 149, 149, 0.295), rgba(255, 255, 202, 0.301));
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.arrow {
+    margin-left: 48.8%;
+    margin-bottom: 0;
+    margin-top: 0;
+    border-style: solid;
+    border-color: rgb(255, 170, 170);
+    border-width: 0 10px 10px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 20px;
+    height: 20px;
+  }
