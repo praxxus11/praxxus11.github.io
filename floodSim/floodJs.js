@@ -81,7 +81,7 @@ function Pixel(pixX, pixY)
 }
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
+}
 
 function works(i, j) {
     if (i<0 || i>=50 || j<0 || j>=50) return false; 
@@ -90,6 +90,7 @@ function works(i, j) {
 }
 
 async function floodFill(ii, jj) {
+    let count = 0;
     psuedoQ = [];
     psuedoQ.push([ii, jj]);
     while (psuedoQ.length > 0) {
@@ -117,7 +118,15 @@ async function floodFill(ii, jj) {
             psuedoQ.push([i, j+1]);
             allPixel[i][j+1].type = 3;
         }
-        await sleep(1);
+        let spd = document.getElementById('fillspd').value;
+        let pause;
+        let step;
+        if (spd=='Super Slow') {pause = 100; step = 1;}
+        if (spd=='Medium') {pause = 1; step = 1;}
+        if (spd=='Fast') {pause = 1; step = 5;}
+        if (spd=='Instant') {pause = 1; step = 30;}
+        if (count%step==0) await sleep(pause);
+        count++;
     }
     filling = false;
     if (!filling)

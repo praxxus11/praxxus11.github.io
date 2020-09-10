@@ -36,14 +36,25 @@
             <br>
             <button class='fancy_button' id='barriers'>Draw Barriers</button>
             <button class='fancy_button' id='startingPoint'>Pick Starting Point</button>
+            <button class='fancy_button' onclick='rand()' id='makeMake'>Make Maze</button>
             <br><br>
             <button class='fancy_button' id='beginFill'>FILL!!!!!</button>
-            <button onclick='rand()' id='makeMake'>Maze</button>
         </div>
         <div>
             <input style='margin: 20px' type='range' min='5' max='30' id='brush_slider'>
-            <span>Brush size (radius): </span>
-            <span id='brush_size'></span>
+            <label for='brush_slider'>
+                <span>Brush size (radius): </span>
+                <span id='brush_size'></span>
+            </label>
+        </div>
+        <div>
+            <label for='fillspd'>Select a fill speed</label>
+            <select id="fillspd">
+                <option>Super Slow</option>
+                <option>Medium</option>
+                <option>Fast</option>
+                <option>Instant</option>
+            </select>
         </div>
         <script>
             let slider = document.getElementById("brush_slider");
