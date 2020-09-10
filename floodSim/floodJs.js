@@ -125,8 +125,8 @@ async function floodFill(ii, jj) {
 }
 
 function fillTime() {
-    let startX;
-    let startY;
+    let startX=0;
+    let startY=0;
     for (let i=0; i<50; i++) {
         for (let j=0; j<50; j++) {
             let tmpPix = allPixel[i][j];
@@ -139,6 +139,17 @@ function fillTime() {
         }
     }
     floodFill(startX, startY);
+}
+function rand() {
+    for (let i=0; i<50; i++) {
+        for (let j=0; j<50; j++) {
+            if (Math.random()<0.2) {
+                allPixel[i][j].type = 3;
+                allPixel[i][j].pressed = true;
+                allPixel[i][j].color = [255, 100, 100];
+            }
+        }
+    }
 }
 function dynamic() {
     $('#barriers').click(function() {
