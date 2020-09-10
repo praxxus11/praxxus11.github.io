@@ -144,7 +144,7 @@ function rand() {
     if (allPixel.length>10) {
         for (let i=0; i<50; i++) {
             for (let j=0; j<50; j++) {
-                if (Math.random()<0.2) {
+                if (Math.random()<0.1) {
                     allPixel[i][j].type = 3;
                     allPixel[i][j].pressed = true;
                     allPixel[i][j].color = [255, 100, 100];
