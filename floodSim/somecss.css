@@ -1,0 +1,31 @@
+.fancy_button {
+    margin: 2px;
+    display: inline-block;
+    font-size: 18px;
+    font-family: coda;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: rgb(0, 0, 0);
+    background-color: #dceeff;
+    border: none;
+    border-radius: 5px;
+}
+.fancy_button:hover {background-color: #c8e6ff}
+
+.fancy_button2 {
+    margin: 2px;
+    display: inline-block;
+    font-size: 18px;
+    font-family: coda;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: rgb(0, 0, 0);
+    background-color: #ff5555;
+    border: none;
+    border-radius: 5px;
+}
+.fancy_button2:hover {background-color: #ff1c1c}

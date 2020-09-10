@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="somecss.css" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src='floodJs.js'></script>
+    </head>
+    <body>
+        <div>
+            <p style="float: left; margin-right: 40px">
+                <canvas id='canv' width='500' height='500' style="border:1px solid #000000;">
+            </p>
+            <h3>
+                About:
+            </h3>
+            <p style='width: 60%;'>
+                This is a non-recursive breadth first implementation of floodfill.
+                I first tried a depth-first approach but the recursive function calls
+                in javascript were hard to manage so I didn't want to deal with it. 
+            </p>
+            <h3>
+                Instructions:
+            </h3>
+            <p style='width: 60%;'>
+                First click on the red button to start the game. Then click on draw 
+                barriers to draw some walls, try to include holes and enclosed areas. 
+                Once all walls are drawn, pick ONLY ONE starting point. If you choose
+                multiple, then the program will just choose the last one drawn. Once 
+                ready, click on FILL to start! Make sure not to click on restart during
+                the filling process. <br><br> You can continue to draw initialization points
+                after the filling is complete.
+            </p>
+        </div>
+        <div>
+            <button class='fancy_button2' onclick='initialize()'>Start/Reset board</button>
+            <br>
+            <button class='fancy_button' id='barriers'>Draw Barriers</button>
+            <button class='fancy_button' id='startingPoint'>Pick Starting Point</button>
+            <br><br>
+            <button class='fancy_button' id='beginFill'>FILL!!!!!</button>
+        </div>
+        <div>
+            <input style='margin: 20px' type='range' min='5' max='30' id='brush_slider'>
+            <span>Brush size (radius): </span>
+            <span id='brush_size'></span>
+        </div>
+        <script>
+            let slider = document.getElementById("brush_slider");
+            let output = document.getElementById("brush_size");
+            output.innerHTML = slider.value;
+            
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+            }
+        </script>
+    </body>
+</html>
