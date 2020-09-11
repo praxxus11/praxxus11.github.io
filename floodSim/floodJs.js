@@ -65,7 +65,7 @@ function Pixel(pixX, pixY)
                 this.color = [255, 255, 255];   
         }
         else {
-            if (mouseAffectingPix(this.x, this.y, 5)) {
+            if (mouseAffectingPix(this.x, this.y, 6)) {
                 if (clicking) {
                     this.color = [100, 255, 100];
                     this.pressed = true;
