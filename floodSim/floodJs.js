@@ -6,8 +6,9 @@ let clicking;
 let running;
 let drawingBarriers = true;
 let filling = false;
-let psuedoQ = [];
+let psuedoQorS = [];
 let allPixel = [];
+let wantDfs = 1;
 
 
 function currPos(event) {
@@ -89,33 +90,33 @@ function works(i, j) {
     return true;
 }
 
-async function floodFill(ii, jj) {
+async function floodFillbfs(ii, jj) {
     let count = 0;
-    psuedoQ = [];
-    psuedoQ.push([ii, jj]);
-    while (psuedoQ.length > 0) {
-        let i = psuedoQ[0][0];
-        let j = psuedoQ[0][1];
-        psuedoQ = psuedoQ.slice(1);
+    psuedoQorS = [];
+    psuedoQorS.push([ii, jj]);
+    while (psuedoQorS.length > 0) {
+        let i = psuedoQorS[0][0];
+        let j = psuedoQorS[0][1];
+        psuedoQorS = psuedoQorS.slice(1);
         allPixel[i][j].type = 3;
         allPixel[i][j].color = [100, 255, 100];
         allPixel[i][j].pressed = true;
         ctx.fillStyle = 'rgb(100, 255, 100)';
         ctx.fillRect(allPixel[i][j].x, allPixel[i][j].y, 8, 8);
         if (works(i-1, j)) {
-            psuedoQ.push([i-1, j]);
+            psuedoQorS.push([i-1, j]);
             allPixel[i-1][j].type = 3;
         }
         if (works(i+1, j)) {
-            psuedoQ.push([i+1, j]);
+            psuedoQorS.push([i+1, j]);
             allPixel[i+1][j].type = 3;
         }
         if (works(i, j-1)) {
-            psuedoQ.push([i, j-1]);
+            psuedoQorS.push([i, j-1]);
             allPixel[i][j-1].type = 3;
         }
         if (works(i, j+1)) {
-            psuedoQ.push([i, j+1]);
+            psuedoQorS.push([i, j+1]);
             allPixel[i][j+1].type = 3;
         }
         let spd = document.getElementById('fillspd').value;
@@ -133,6 +134,49 @@ async function floodFill(ii, jj) {
         running = setInterval(dynamic, 1);
 }
 
+async function floodFilldfs(ii, jj) {
+    let count = 0;
+    psuedoQorS = [];
+    psuedoQorS.push([ii, jj]);
+    while (psuedoQorS.length > 0) {
+        let tempCor = psuedoQorS.pop();
+        let i = tempCor[0];
+        let j = tempCor[1];
+        allPixel[i][j].type = 3;
+        allPixel[i][j].color = [100, 255, 100];
+        allPixel[i][j].pressed = true;
+        ctx.fillStyle = 'rgb(100, 255, 100)';
+        ctx.fillRect(allPixel[i][j].x, allPixel[i][j].y, 8, 8);
+        if (works(i-1, j)) {
+            psuedoQorS.push([i-1, j]);
+            allPixel[i-1][j].type = 3;
+        }
+        if (works(i+1, j)) {
+            psuedoQorS.push([i+1, j]);
+            allPixel[i+1][j].type = 3;
+        }
+        if (works(i, j-1)) {
+            psuedoQorS.push([i, j-1]);
+            allPixel[i][j-1].type = 3;
+        }
+        if (works(i, j+1)) {
+            psuedoQorS.push([i, j+1]);
+            allPixel[i][j+1].type = 3;
+        }
+        let spd = document.getElementById('fillspd').value;
+        let pause;
+        let step;
+        if (spd=='Super Slow') {pause = 100; step = 1;}
+        if (spd=='Medium') {pause = 1; step = 1;}
+        if (spd=='Fast') {pause = 1; step = 5;}
+        if (spd=='Instant') {pause = 1; step = 30;}
+        if (count%step==0) await sleep(pause);
+        count++;
+    }
+    filling = false;
+    if (!filling)
+        running = setInterval(dynamic, 1);
+}
 function fillTime() {
     let startX=0;
     let startY=0;
@@ -147,7 +191,9 @@ function fillTime() {
             }
         }
     }
-    floodFill(startX, startY);
+    if(wantDfs) floodFilldfs(startX, startY);
+    else floodFillbfs(startX, startY);
+
 }
 function rand() {
     if (allPixel.length>10) {
@@ -169,9 +215,15 @@ function dynamic() {
     $('#startingPoint').click(function() {
         drawingBarriers=false;
     });
-    $('#beginFill').click(function() {
+    $('#beginBfs, #beginDfs').click(function() {
         filling=true;
+        wantDfs=1;
     });
+    $('#beginBfs, #beginBfs').click(function() {
+        filling=true;
+        wantDfs=0;
+    });
+
 
     ctx.fillStyle = 'rgb(200, 200, 200)';
     ctx.fillRect(0, 0, 500, 500);
@@ -196,7 +248,7 @@ function initialize() {
         ctx.fillStyle = 'rgb(200, 200, 200)';
         ctx.fillRect(0, 0, 500, 500);
         allPixel = [];
-        psuedoQ = [];
+        psuedoQorS = [];
         filling = false;
         drawingBarriers = true;
         for (let i=0; i<50; i++) {
