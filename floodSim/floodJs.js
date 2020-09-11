@@ -134,9 +134,10 @@ async function floodFill(ii, jj) {
         let pause;
         let step;
         if (spd=='Super Slow') {pause = 100; step = 1;}
-        if (spd=='Medium') {pause = 1; step = 1;}
-        if (spd=='Fast') {pause = 1; step = 5;}
-        if (spd=='Instant') {pause = 1; step = 30;}
+        else if (spd=='Medium') {pause = 1; step = 1;}
+        else if (spd=='Fast') {pause = 1; step = 5;}
+        else if (spd=='Almost Instant') {pause = 1; step = 30;}
+        else if (spd=='Actually Instant') {pause=1; step=1e7;}
         if (count%step==0) await sleep(pause);
         count++;
     }
