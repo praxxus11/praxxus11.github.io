@@ -90,34 +90,45 @@ function works(i, j) {
     return true;
 }
 
-async function floodFillbfs(ii, jj) {
+async function floodFill(ii, jj) {
     let count = 0;
     psuedoQorS = [];
     psuedoQorS.push([ii, jj]);
     while (psuedoQorS.length > 0) {
-        let i = psuedoQorS[0][0];
-        let j = psuedoQorS[0][1];
-        psuedoQorS = psuedoQorS.slice(1);
+        let i, j;
+        if (wantDfs) {
+            let tempCor = psuedoQorS.pop();
+            i = tempCor[0]; j = tempCor[1];
+        }
+        else {
+            i = psuedoQorS[0][0]; j = psuedoQorS[0][1];
+            psuedoQorS = psuedoQorS.slice(1);
+        }
         allPixel[i][j].type = 3;
         allPixel[i][j].color = [100, 255, 100];
         allPixel[i][j].pressed = true;
         ctx.fillStyle = 'rgb(100, 255, 100)';
         ctx.fillRect(allPixel[i][j].x, allPixel[i][j].y, 8, 8);
+        ctx.fillStyle = 'rgb(0, 100, 0)';
         if (works(i-1, j)) {
             psuedoQorS.push([i-1, j]);
+            ctx.fillRect(allPixel[i-1][j].x, allPixel[i-1][j].y, 8, 8);
             allPixel[i-1][j].type = 3;
-        }
+        }   
         if (works(i+1, j)) {
             psuedoQorS.push([i+1, j]);
+            ctx.fillRect(allPixel[i+1][j].x, allPixel[i+1][j].y, 8, 8);
             allPixel[i+1][j].type = 3;
         }
         if (works(i, j-1)) {
             psuedoQorS.push([i, j-1]);
+            ctx.fillRect(allPixel[i][j-1].x, allPixel[i][j-1].y, 8, 8);
             allPixel[i][j-1].type = 3;
         }
         if (works(i, j+1)) {
             psuedoQorS.push([i, j+1]);
-            allPixel[i][j+1].type = 3;
+            ctx.fillRect(allPixel[i][j+1].x, allPixel[i][j+1].y, 8, 8);
+            allPixel[i][j+1].type = 3;  
         }
         let spd = document.getElementById('fillspd').value;
         let pause;
@@ -134,49 +145,6 @@ async function floodFillbfs(ii, jj) {
         running = setInterval(dynamic, 1);
 }
 
-async function floodFilldfs(ii, jj) {
-    let count = 0;
-    psuedoQorS = [];
-    psuedoQorS.push([ii, jj]);
-    while (psuedoQorS.length > 0) {
-        let tempCor = psuedoQorS.pop();
-        let i = tempCor[0];
-        let j = tempCor[1];
-        allPixel[i][j].type = 3;
-        allPixel[i][j].color = [100, 255, 100];
-        allPixel[i][j].pressed = true;
-        ctx.fillStyle = 'rgb(100, 255, 100)';
-        ctx.fillRect(allPixel[i][j].x, allPixel[i][j].y, 8, 8);
-        if (works(i-1, j)) {
-            psuedoQorS.push([i-1, j]);
-            allPixel[i-1][j].type = 3;
-        }
-        if (works(i+1, j)) {
-            psuedoQorS.push([i+1, j]);
-            allPixel[i+1][j].type = 3;
-        }
-        if (works(i, j-1)) {
-            psuedoQorS.push([i, j-1]);
-            allPixel[i][j-1].type = 3;
-        }
-        if (works(i, j+1)) {
-            psuedoQorS.push([i, j+1]);
-            allPixel[i][j+1].type = 3;
-        }
-        let spd = document.getElementById('fillspd').value;
-        let pause;
-        let step;
-        if (spd=='Super Slow') {pause = 100; step = 1;}
-        if (spd=='Medium') {pause = 1; step = 1;}
-        if (spd=='Fast') {pause = 1; step = 5;}
-        if (spd=='Instant') {pause = 1; step = 30;}
-        if (count%step==0) await sleep(pause);
-        count++;
-    }
-    filling = false;
-    if (!filling)
-        running = setInterval(dynamic, 1);
-}
 function fillTime() {
     let startX=0;
     let startY=0;
@@ -191,8 +159,9 @@ function fillTime() {
             }
         }
     }
-    if(wantDfs) floodFilldfs(startX, startY);
-    else floodFillbfs(startX, startY);
+    // if(wantDfs) floodFilldfs(startX, startY);
+    // else floodFillbfs(startX, startY);
+    floodFill(startX, startY);
 
 }
 function rand() {
