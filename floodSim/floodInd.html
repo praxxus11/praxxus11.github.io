@@ -3,7 +3,9 @@
     <head>
         <link href="somecss.css" rel="stylesheet" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src='floodJs.js'></script>
+        <script src='skripts/floodJs.js'></script>
+        <script src='skripts/bgrd.js'></script>
+        <script src='skripts/utils.js'></script>
     </head>
     <body>
         <div>
@@ -55,6 +57,15 @@
                 <option>Fast</option>
                 <option>Almost Instant</option>
                 <option>Actually Instant</option>
+            </select>
+        </div>
+        <div>
+            <label for='size_select'>Select a Grid Size</label>
+            <select id="size_select">
+                <option>10x10</option>
+                <option selected='selected'>50x50 (Recommended)</option>
+                <option>100x100</option>
+                <option>250x250 (Not Recommended)</option>
             </select>
         </div>
         <script>
