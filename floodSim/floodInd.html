@@ -8,65 +8,88 @@
         <script src='skripts/utils.js'></script>
     </head>
     <body>
-        <div>
-            <p style="float: left; margin-right: 40px">
-                <canvas id='canv' width='500' height='500' style="border:1px solid #000000;">
-            </p>
-            <h3>
-                About:
-            </h3>
-            <p style='width: 60%;'>
-                This is a non-recursive breadth and depth first implementation of floodfill.
-                I first tried a recursive approach but the recursive function calls
-                in javascript are a pain so I didn't want to deal with it. 
-            </p>
-            <h3>
-                Instructions:
-            </h3>
-            <p style='width: 60%;'>
-                First click on the red button to start the game. Then click on draw 
-                barriers to draw some walls, try to include holes and enclosed areas. 
-                Once all walls are drawn, try to pick one starting point. If you choose
-                multiple, then the program will just choose the last one drawn. Once 
-                ready, click on your fill preference to start!<br><br> You can continue to 
-                draw initialization points after the filling is complete.
-            </p>
-        </div>
-        <div>
-            <button class='fancy_button2' onclick='initialize()'>Start/Reset board</button>
-            <br>
-            <button class='fancy_button' id='barriers'>Draw Barriers</button>
-            <button class='fancy_button' id='startingPoint'>Pick Starting Point</button>
-            <button class='fancy_button' onclick='rand()' id='makeMake'>Make Maze</button>
-            <br><br>
-            <button class='fancy_button' id='beginBfs'>Breadth First Fill!</button>
-            <button class='fancy_button' id='beginDfs'>Depth First Fill!</button>
-        </div>
-        <div>
-            <input style='margin: 20px' type='range' min='5' max='30' id='brush_slider'>
-            <label for='brush_slider'>
-                <span>Brush size (radius): </span>
-                <span id='brush_size'></span>
-            </label>
-        </div>
-        <div>
-            <label for='fillspd'>Select a fill speed</label>
-            <select id="fillspd">
-                <option>Super Slow</option>
-                <option>Medium</option>
-                <option>Fast</option>
-                <option>Almost Instant</option>
-                <option>Actually Instant</option>
-            </select>
-        </div>
-        <div>
-            <label for='size_select'>Select a Grid Size</label>
-            <select id="size_select">
-                <option>10x10</option>
-                <option selected='selected'>50x50 (Recommended)</option>
-                <option>100x100</option>
-                <option>250x250 (Not Recommended)</option>
-            </select>
+        <p style="float: left; margin-right: 20px">
+            <canvas id='canv' width='500' height='500' style="border:1px solid #000000;">
+        </p>
+        <div style='width:80%;'>
+            <div>
+                <h3>
+                    About:
+                </h3>
+                <p>
+                    This is a non-recursive breadth and depth first implementation of floodfill and 
+                    shortest paths. 
+                </p>
+                <h3>
+                    Instructions:
+                </h3>
+                <p>
+                    Click on start to start. First go to the first menu button to draw walls. If you 
+                    only want bfs or dfs, don't pick a ending point. Once ready, go to action and 
+                    choose your prefered action, note, if no starting/ending points are chosen, default
+                    ones are chosen for you. Change the board size or filling speed in the settings menu.
+                </p>
+            </div>
+            <div style='text-align: center;'>
+                <span>
+                    <button class='fancy_button2' onclick='initialize()' id='start_button'>Start/Reset board</button>
+                </span>
+            </div>
+            <hr>
+            <div style='text-align: center;'>
+                <span>
+                    <button id='draw_board_toggle'>Draw Board</button>
+                </span>
+                <span>
+                    <button id='action_button_toggle'>Actions</button>
+                </span>
+                <span>
+                    <button id='setting_button_toggle'>Settings</button>
+                </span>
+            </div>
+            <hr>
+            <div hidden id='drawing_buttons' style='text-align: center;'>
+                <button class='fancy_button2' id='erasebut'>Erase</button>
+                <button class='fancy_button' id='barriers'>Draw Barriers</button>
+                <br>
+                <button class='fancy_button' id='startingPoint'>Pick Starting Point</button>
+                <button class='fancy_button' id='endingPoint'>Pick Ending Point (for shortest paths)</button>
+                <br>
+                <button class='fancy_button' onclick='rand()' id='makeMake'>Make Maze</button>
+                <div>
+                    <input type='range' min='5' max='70' value='20' id='brush_slider'>
+                    <label for='brush_slider'>
+                        <span>Brush size (radius): </span>
+                        <span id='brush_size'></span>
+                    </label>
+                </div>
+            </div>
+            <div hidden visibility='hidden' id='action_buttons' style='text-align: center;'>
+                <button class='fancy_button' id='beginBfs'>Breadth First Fill!</button>
+                <button class='fancy_button' id='beginDfs'>Depth First Fill!</button>
+                <button class='fancy_button' id='beginShortestPaths'>Shortest Paths</button>
+            </div>
+            <div hidden id='setting_buttons' style='text-align: center;'>
+                <div>
+                    <label for='fillspd'>Select a fill speed</label>
+                    <select id="fillspd">
+                        <option>Super Slow</option>
+                        <option>Medium</option>
+                        <option>Fast</option>
+                        <option>Almost Instant</option>
+                        <option>Actually Instant</option>
+                    </select>
+                </div>
+                <div>
+                    <label for='size_select'>Select a Grid Size</label>
+                    <select id="size_select">
+                        <option>10x10</option>
+                        <option selected='selected'>50x50 (Recommended)</option>
+                        <option>100x100</option>
+                        <option>250x250 (Not Recommended)</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <script>
             let slider = document.getElementById("brush_slider");

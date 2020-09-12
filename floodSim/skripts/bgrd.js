@@ -12,6 +12,32 @@ $(document).ready(function(){
             alert("Wait for fill");
         }
     });
+    $('#fillspd').on('change', function(e) {
+        let spd = $('#fillspd').val();
+        if (spd=='Super Slow') {pause = 100; step = 1;}
+        else if (spd=='Medium') {pause = 1; step = 1;}
+        else if (spd=='Fast') {pause = 1; step = 5;}
+        else if (spd=='Almost Instant') {pause = 1; step = 30;}
+        else if (spd=='Actually Instant') {pause=1; step=1e7;}
+    });
+});
+
+$(document).ready(function() {
+    $('#draw_board_toggle').click(function() {
+        $('#action_buttons').hide();
+        $('#setting_buttons').hide();
+        $('#drawing_buttons').show();
+    });
+    $('#action_button_toggle').click(function() {
+        $('#drawing_buttons').hide();
+        $('#setting_buttons').hide();
+        $('#action_buttons').show();
+    });
+    $('#setting_button_toggle').click(function() {
+        $('#drawing_buttons').hide();
+        $('#action_buttons').hide();
+        $('#setting_buttons').show();
+    });
 });
 
 function currPos(event) {
