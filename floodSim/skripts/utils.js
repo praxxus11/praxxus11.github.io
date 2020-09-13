@@ -15,8 +15,7 @@ function mouseAffectingPix(x, y) {
     return false;
 }
 
-function Pixel(pixX, pixY)
-{
+function Pixel(pixX, pixY) {
     this.x = parseInt(pixX);
     this.y = parseInt(pixY);
     this.color = [255, 255, 255];
@@ -24,8 +23,7 @@ function Pixel(pixX, pixY)
     // 4: end square for shortest paths, 3: a barrier or visited square, 
     // 2: start square, 1: blank sqaure
     this.type = 1;
-    this.update = function()
-    {
+    this.update = function() {
         if (mouseAffectingPix(this.x, this.y)) {
             if (clicking) {
                 if (drawingMode=="barrier") {
@@ -66,15 +64,75 @@ function Pixel(pixX, pixY)
 }
 
 function rand() {
-    if (allPixel.length>1) {
+    function works(i, j) {
+        if (i<0||i>=dim||j<0||j>=dim) return false;
+        if (allPixel[i][j].type==1) return false;
+        return true;
+    }
+    if (!filling) {
         for (let i=0; i<dim; i++) {
             for (let j=0; j<dim; j++) {
-                if (Math.random()<0.1) {
-                    allPixel[i][j].type = 3;
-                    allPixel[i][j].pressed = true;
+                allPixel[i][j].pressed = false;
+                allPixel[i][j].type = 10;
+                if (!(i%2==0 && j%2==0)) {
                     allPixel[i][j].color = [255, 100, 100];
+                    allPixel[i][j].pressed = true;
+                    allPixel[i][j].type = 3;
                 }
             }
         }
+        let i=0, j=0;
+        let s = [];
+        s.push([i, j]);
+        allPixel[i][j].type = 1;
+        while (s.length!=0) {
+            let temp = s.pop();
+            i=temp[0]; j=temp[1];
+            let validness = [works(i, j-2), works(i, j+2), works(i-2, j), works(i+2, j)];
+            let possib = [[i, j-2], [i, j+2], [i-2, j], [i+2, j]];
+            let avail = [];
+            for (let i=0; i<4; i++) {
+                if (validness[i])
+                    avail.push(possib[i]);
+            }
+            if (avail.length>0) {
+                s.push([i, j]);
+                let rand = Math.floor(Math.random()*avail.length);
+                let toPush = avail[rand];
+                let iT = toPush[0];
+                let jT = toPush[1];
+                if (j-jT==2) {
+                    allPixel[i][j-1].pressed = false;
+                    allPixel[i][j-1].type = 1;
+                    
+                    allPixel[i][j-2].type = 1;
+                    s.push([i, j-2]);
+                }
+                if (j-jT==-2) {
+                    allPixel[i][j+1].pressed = false;
+                    allPixel[i][j+1].type = 1;
+                    
+                    allPixel[i][j+2].type = 1;
+                    s.push([i, j+2]);
+                }
+                if (i-iT==2) {
+                    allPixel[i-1][j].pressed = false;
+                    allPixel[i-1][j].type = 1;
+                    
+                    allPixel[i-2][j].type = 1;
+                    s.push([i-2, j]);
+                }
+                if (i-iT==-2) {
+                    allPixel[i+1][j].pressed = false;
+                    allPixel[i+1][j].type = 1;
+                    
+                    allPixel[i+2][j].type = 1;
+                    s.push([i+2, j]);
+                }
+            }
+        }
+    }
+    else {
+        alert("Wait for fill");
     }
 }

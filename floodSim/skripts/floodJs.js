@@ -88,19 +88,19 @@ function goPath(targeti, targetj) {
         if (withinBounds(i+1, j)) minDist = Math.min(minDist, dists[i+1][j]);
         if (withinBounds(i, j-1)) minDist = Math.min(minDist, dists[i][j-1]);
         if (withinBounds(i, j+1)) minDist = Math.min(minDist, dists[i][j+1]);
-        if (withinBounds(i-1, j-1)) minDist = Math.min(minDist, dists[i-1][j-1]);
-        if (withinBounds(i-1, j+1)) minDist = Math.min(minDist, dists[i-1][j+1]);
-        if (withinBounds(i+1, j-1)) minDist = Math.min(minDist, dists[i+1][j-1]);
-        if (withinBounds(i+1, j+1)) minDist = Math.min(minDist, dists[i+1][j+1]);
+        // if (withinBounds(i-1, j-1)) minDist = Math.min(minDist, dists[i-1][j-1]);
+        // if (withinBounds(i-1, j+1)) minDist = Math.min(minDist, dists[i-1][j+1]);
+        // if (withinBounds(i+1, j-1)) minDist = Math.min(minDist, dists[i+1][j-1]);
+        // if (withinBounds(i+1, j+1)) minDist = Math.min(minDist, dists[i+1][j+1]);
 
         if (withinBounds(i-1, j) && dists[i-1][j]==minDist) {fillCol(i-1, j); i--}
         else if (withinBounds(i+1, j) && dists[i+1][j]==minDist) {fillCol(i+1, j); i++}
         else if (withinBounds(i, j-1) && dists[i][j-1]==minDist) {fillCol(i, j-1); j--}
         else if (withinBounds(i, j+1) && dists[i][j+1]==minDist) {fillCol(i, j+1); j++}
-        else if (withinBounds(i-1, j-1) && dists[i-1][j-1]==minDist) {fillCol(i-1, j-1); i--; j--;} 
-        else if (withinBounds(i-1, j+1) && dists[i-1][j+1]==minDist) {fillCol(i-1, j+1); i--; j++;}
-        else if (withinBounds(i+1, j-1) && dists[i+1][j-1]==minDist) {fillCol(i+1, j-1); i++; j--;}
-        else if (withinBounds(i+1, j+1) && dists[i+1][j+1]==minDist) {fillCol(i+1, j+1); i++; j++;}
+        // else if (withinBounds(i-1, j-1) && dists[i-1][j-1]==minDist) {fillCol(i-1, j-1); i--; j--;} 
+        // else if (withinBounds(i-1, j+1) && dists[i-1][j+1]==minDist) {fillCol(i-1, j+1); i--; j++;}
+        // else if (withinBounds(i+1, j-1) && dists[i+1][j-1]==minDist) {fillCol(i+1, j-1); i++; j--;}
+        // else if (withinBounds(i+1, j+1) && dists[i+1][j+1]==minDist) {fillCol(i+1, j+1); i++; j++;}
         else alert("Error Please Restart Page");
     }
     filling=false;
@@ -171,8 +171,8 @@ async function shortestPaths(ii, jj, targeti, targetj) {
 function fillTime() {
     let startX=0;
     let startY=0;
-    let endX = dim-1;
-    let endY = dim-1;
+    let endX = dim-2;
+    let endY = dim-2;
     for (let i=0; i<dim; i++) {
         for (let j=0; j<dim; j++) {
             let tmpPix = allPixel[i][j];

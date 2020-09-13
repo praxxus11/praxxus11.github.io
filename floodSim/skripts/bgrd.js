@@ -3,9 +3,10 @@ $(document).ready(function(){
         if (!filling) {
             let usrSize = $("#size_select").val();
             if (usrSize=='10x10') {dim=10; blockWid=49;}
-            if (usrSize=='50x50 (Recommended)') {dim=50; blockWid=9;}
-            if (usrSize=='100x100') {dim=100; blockWid=4;}
-            if (usrSize=='250x250 (Not Recommended)') {dim=250; blockWid=2;}
+            else if (usrSize=='50x50 (Recommended)') {dim=50; blockWid=9;}
+            else if (usrSize=='100x100') {dim=100; blockWid=4;}
+            else if (usrSize=='250x250 (Not Recommended)') {dim=250; blockWid=2;}
+            else if (usrSize=='500x500 (!!!WARNING!!!)') {dim=500; blockWid=1;}
             initialize();
         }
         else {
