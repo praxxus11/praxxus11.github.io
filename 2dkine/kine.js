@@ -25,6 +25,10 @@ function draw() {
     xx -= (vx * (bef-curr))/1000.0;
     yy += (vy * (bef-curr))/1000.0;
     vy -= (-grav * (bef-curr))/1000.0;
+
+    if (xx>605 || xx<5) vx = -(4/5)*vx;
+    if (yy>605 || yy<5) vy = -(4/5)*vy;
+
     bef = curr;
 }
 function go() {

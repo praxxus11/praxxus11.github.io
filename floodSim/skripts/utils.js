@@ -136,3 +136,25 @@ function rand() {
         alert("Wait for fill");
     }
 }
+
+function static() {
+    if (!filling) {
+        for (let j=0; j<dim; j++) {
+            for (let i=0; i<dim; i++) {
+                if (Math.random()<0.3) {
+                    allPixel[i][j].color = [255, 100, 100];
+                    allPixel[i][j].pressed = true;
+                    allPixel[i][j].type = 3;
+                }
+                else {
+                    allPixel[i][j].color = [255, 255, 255];
+                    allPixel[i][j].pressed= false;
+                    allPixel[i][j].type = 1;
+                }
+            }
+        }
+    }
+    else {
+        alert("Wait for fill");
+    }
+}
