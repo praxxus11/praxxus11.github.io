@@ -35,7 +35,7 @@ function go() {
     clearInterval(start);   
     cvs = document.getElementById("canv");
     ctx = cvs.getContext("2d");
-    xx = 100;
+    xx = 100;   
     yy = 500;
     vx = initMag * Math.cos((Math.PI/180.0) * initAngle);
     vy = initMag * Math.sin((Math.PI/180.0) * initAngle);
