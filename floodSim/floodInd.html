@@ -18,16 +18,16 @@
                 </h3>
                 <p>
                     This is a non-recursive breadth and depth first implementation of floodfill and 
-                    shortest paths. 
+                    a shortest paths algorithm. 
                 </p>
                 <h3>
                     Instructions:
                 </h3>
                 <p>
-                    Click on start to start. First go to the first menu button to draw walls. If you 
-                    only want bfs or dfs, don't pick a ending point. Once ready, go to action and 
+                    Click on <i>Start/Resert Board</i>. <strong>First</strong> go to the <i>Draw Board</i> menu button to draw walls. If you 
+                    choose bfs or dfs, don't pick a ending point. <strong>Once ready</strong>, go to action and 
                     choose your prefered action, note, if no starting/ending points are chosen, default
-                    ones are chosen for you. Change the board size or filling speed in the settings menu.
+                    ones are chosen for you. <br><br><strong>Change the board size or filling speed in the settings menu.</strong>
                 </p>
             </div>
             <div style='text-align: center;'>
@@ -49,20 +49,21 @@
             </div>
             <hr>
             <div hidden id='drawing_buttons' style='text-align: center;'>
-                <button class='fancy_button2' id='erasebut'>Erase</button>
-                <button class='fancy_button' id='barriers'>Draw Barriers</button>
+                <button class='fancy_button2' id='erasebut'><strong>Erase</strong></button>
+                <button class='fancy_button' id='barriers'><strong>Draw Barriers</strong></button>
                 <br>
                 <button class='fancy_button' id='startingPoint'>Pick Starting Point</button>
                 <button class='fancy_button' id='endingPoint'>Pick Ending Point (for shortest paths)</button>
-                <br>
-                <button class='fancy_button' onclick='rand()' id='makeMake'>Make Maze</button>
-                <button class='fancy_button' onclick='static()' id='static'>Static</button>
                 <div>
-                    <input type='range' min='5' max='70' value='20' id='brush_slider'>
-                    <label for='brush_slider'>
-                        <span>Brush size (radius): </span>
-                        <span id='brush_size'></span>
-                    </label>
+                    <button class='fancy_button' onclick='rand()' id='makeMake'>Maze</button>
+                    <button class='fancy_button' onclick='static()' id='static'>Random</button>
+                    <div>
+                        <input type='range' min='5' max='70' value='20' id='brush_slider'>
+                        <label for='brush_slider'>
+                            <span>Brush size (radius): </span>
+                            <span id='brush_size'></span>
+                        </label>
+                </div>
                 </div>
             </div>
             <div hidden visibility='hidden' id='action_buttons' style='text-align: center;'>
