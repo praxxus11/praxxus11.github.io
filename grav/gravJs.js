@@ -94,7 +94,7 @@ function start() {
     let arr = [];
     for (let i=0; i<150; i++) {
         let col = `rgb(${rand(160,255)}, ${rand(160,255)}, ${rand(160,255)})`;
-        arr.push(new Particle(50, 50, rand(-5, 5), rand(-5, 5), rand(3, 20), col));
+        arr.push(new Particle(50, 50, rand(0, 7), rand(0, 7), rand(3, 20), col));
     }
     let bb = setInterval(function() {
         ctx.fillStyle = 'black'
