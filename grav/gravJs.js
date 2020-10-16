@@ -48,7 +48,7 @@ function Particle(x, y, dy, dx, rad, col) {
         else this.dx+=0.002;
 
         if (clicking) {
-            let grav = getAccels(1, 1500, this.rad, mouseX, mouseY, this.x, this.y);
+            let grav = getAccels(1, 1500, Math.pow(this.rad,2), mouseX, mouseY, this.x, this.y);
             this.dx += grav[0];
             this.dy += grav[1];
         }
