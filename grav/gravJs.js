@@ -42,12 +42,12 @@ function Particle(x, y, dy, dx, rad, col) {
     this.update = function() {
         if (this.y+this.rad>=cvs.height && this.dy>=0) this.dy*=-0.7;
         else if (this.y-this.rad<=0 && this.dy<=0) this.dy*=-0.7;
-        else if (gravOn && this.y+this.rad<cvs.height) this.dy+=0.01;
+        else if (gravOn && this.y+this.rad<cvs.height) this.dy+=0.13;
 
         if (this.x+this.rad>=cvs.width && this.dx>=0) this.dx*=-0.7;
         else if (this.x-this.rad<=0 && this.dx<=0) this.dx*=-0.7;
 
-        let mult = Math.pow(Math.sqrt(Math.pow(this.dx,2)+Math.pow(this.dy,2)),2)*Math.pow(this.rad,2)*1e-4;
+        let mult = Math.pow(Math.sqrt(Math.pow(this.dx,2)+Math.pow(this.dy,2)),2)*Math.pow(this.rad,2)*5e-4;
 
         if (this.dy>0) this.dy-=0.002*mult;
         else this.dy+=0.002*mult;
@@ -56,7 +56,7 @@ function Particle(x, y, dy, dx, rad, col) {
         else this.dx+=0.004*mult;
         
         if (clicking) {
-            let grav = getAccels(1, 2200, Math.pow(this.rad,2), mouseX, mouseY, this.x, this.y);
+            let grav = getAccels(1, 29000, Math.pow(this.rad,2), mouseX, mouseY, this.x, this.y);
             this.dx += grav[0];
             this.dy += grav[1];
         }
@@ -98,6 +98,7 @@ function getAccels(k, m1, m2, x1, y1, x2, y2) {
     return [-forceX/m2, forceY/m2];
 }
 function playing() {
+    requestAnimationFrame(playing);
     ctx.fillStyle = 'black'
     ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
     ctx.font = '40px Arial';
@@ -146,7 +147,7 @@ function playing() {
 function start() {
     for (let i=0; i<150; i++) {
         let col = `rgb(${rand(160,255)}, ${rand(160,255)}, ${rand(160,255)})`;
-        arr.push(new Particle(rand(30,window.innerWidth-50), rand(30,window.innerHeight-50), rand(-1, 2), rand(-1, 2), rand(3, 15), col));
+        arr.push(new Particle(rand(30,window.innerWidth-50), rand(30,window.innerHeight-50), rand(-5, 6), rand(-5, 5), rand(3, 13), col));
     }
-    let bb = setInterval(playing, 1)
+    playing();
 }
