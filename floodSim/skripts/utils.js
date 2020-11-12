@@ -79,6 +79,8 @@ function Pixel(pixX, pixY) {
                 ctx.lineTo(this.x-blockWid, this.y);
                 ctx.closePath();
                 ctx.fill();
+                ctx.strokeStyle = 'rgb(200,200,200)';
+                ctx.stroke();
                 break;
         }
     }

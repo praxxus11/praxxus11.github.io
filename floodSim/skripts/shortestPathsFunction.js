@@ -42,18 +42,20 @@ function goPath(targeti, targetj) {
 
                 if (i%2==1) {
                     if (withinBounds(i-1,j) && dists[i-1][j]==minDist) {fillCol(i-1, j); i--;}
-                    if (withinBounds(i-1,j+1) && dists[i-1][j+1]==minDist) {fillCol(i-1, j+1); i--; j++;}
-                    if (withinBounds(i+1,j+1) && dists[i+1][j+1]==minDist) {fillCol(i+1, j+1); i++; j++;}
-                    if (withinBounds(i+1,j) && dists[i+1][j]==minDist) {fillCol(i+1, j); i++;}
+                    else if (withinBounds(i-1,j+1) && dists[i-1][j+1]==minDist) {fillCol(i-1, j+1); i--; j++;}
+                    else if (withinBounds(i+1,j+1) && dists[i+1][j+1]==minDist) {fillCol(i+1, j+1); i++; j++;}
+                    else if (withinBounds(i+1,j) && dists[i+1][j]==minDist) {fillCol(i+1, j); i++;}
+                    else if (withinBounds(i-2,j) && dists[i-2][j]==minDist) {fillCol(i-2, j); i-=2;}
+                    else if (withinBounds(i+2,j) && dists[i+2][j]==minDist) {fillCol(i+2, j); i+=2;}
                 }
                 else {
                     if (withinBounds(i-1,j-1) && dists[i-1][j-1]==minDist) {fillCol(i-1, j-1); i--; j--;}
-                    if (withinBounds(i-1,j) && dists[i-1][j]==minDist) {fillCol(i-1, j); i--;}
-                    if (withinBounds(i+1,j) && dists[i+1][j]==minDist) {fillCol(i+1, j); i++;}
-                    if (withinBounds(i+1,j-1) && dists[i+1][j-1]==minDist) {fillCol(i+1, j-1); i++; j--;}
+                    else if (withinBounds(i-1,j) && dists[i-1][j]==minDist) {fillCol(i-1, j); i--;}
+                    else if (withinBounds(i+1,j) && dists[i+1][j]==minDist) {fillCol(i+1, j); i++;}
+                    else if (withinBounds(i+1,j-1) && dists[i+1][j-1]==minDist) {fillCol(i+1, j-1); i++; j--;}
+                    else if (withinBounds(i-2,j) && dists[i-2][j]==minDist) {fillCol(i-2, j); i-=2;}
+                    else if (withinBounds(i+2,j) && dists[i+2][j]==minDist) {fillCol(i+2, j); i+=2;}
                 }
-                if (withinBounds(i-2,j) && dists[i-2][j]==minDist) {fillCol(i-2, j); i-=2;}
-                if (withinBounds(i+2,j) && dists[i+2][j]==minDist) {fillCol(i+2, j); i+=2;}
         }
     }
     filling=false;
@@ -109,7 +111,7 @@ async function shortestPaths(ii, jj, targeti, targetj) {
                     pushPix(i, j+1);
                     dists[i][j+1] = dists[i][j]+1;
                 }
-                if (i==targeti && j==targetj) { 
+                if (i==targeti && j==targetj) {
                     goPath(targeti, targetj);
                     return;
                 }
