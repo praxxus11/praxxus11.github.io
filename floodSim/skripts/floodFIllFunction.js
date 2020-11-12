@@ -39,7 +39,7 @@ async function floodFill(ii, jj) {
                 break;
             case "hex":
                 if (i%2==1) {
-                    if (works(i-1,j)) {
+                    if (works(i-1, j)) {
                         pushPix(i-1,j);
                     }
                     if (works(i-1,j+1)) {
