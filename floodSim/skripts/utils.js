@@ -1,5 +1,5 @@
 function works(i, j) {
-    if (i<0 || i>=dim || j<0 || j>=dim) return false; 
+    if (i<0 || i>=allPixel.length || j<0 || j>=allPixel[0].length) return false; 
     if (allPixel[i][j].type==3) return false;
     return true;
 }
@@ -58,20 +58,45 @@ function Pixel(pixX, pixY) {
                     this.color = [235, 235, 235];
             }
         }
-        else if (!this.pressed) 
+        else if (!this.pressed) {
             this.color = [255, 255, 255];   
+        }
+        this.draw();
     };
+    this.draw = function() {
+        ctx.fillStyle = `rgb(${this.color[0]}, ${this.color[1]}, ${this.color[2]})`;
+        switch(gridStyle) {
+            case "square":
+                ctx.fillRect(this.x, this.y, blockWid, blockWid);
+                break;
+            case "hex":
+                ctx.beginPath();
+                ctx.moveTo(this.x-0.5*blockWid, this.y+blockWid*Math.sin(Math.PI/3));
+                ctx.lineTo(this.x+0.5*blockWid, this.y+blockWid*Math.sin(Math.PI/3));
+                ctx.lineTo(this.x+blockWid, this.y);
+                ctx.lineTo(this.x+0.5*blockWid, this.y-blockWid*Math.sin(Math.PI/3));
+                ctx.lineTo(this.x-0.5*blockWid, this.y-blockWid*Math.sin(Math.PI/3));
+                ctx.lineTo(this.x-blockWid, this.y);
+                ctx.closePath();
+                ctx.fill();
+                break;
+        }
+    }
 }
 
 function rand() {
     function works(i, j) {
-        if (i<0||i>=dim||j<0||j>=dim) return false;
+        if (i<0||i>=allPixel.length||j<0||j>=allPixel[0].length) return false;
         if (allPixel[i][j].type==1) return false;
         return true;
     }
+    if (gridStyle=='hex') {
+        alert("Maze is not supported for hexagonal grid.");
+        return 0;
+    }
     if (!filling) {
-        for (let i=0; i<dim; i++) {
-            for (let j=0; j<dim; j++) {
+        for (let i=0; i<allPixel.length; i++) {
+            for (let j=0; j<allPixel[0].length; j++) {
                 allPixel[i][j].pressed = false;
                 allPixel[i][j].type = 10;
                 if (!(i%2==0 && j%2==0)) {
@@ -139,8 +164,8 @@ function rand() {
 
 function static() {
     if (!filling) {
-        for (let j=0; j<dim; j++) {
-            for (let i=0; i<dim; i++) {
+        for (let i=0; i<allPixel.length; i++) {
+            for (let j=0; j<allPixel[0].length; j++) {
                 if (Math.random()<0.3) {
                     allPixel[i][j].color = [255, 100, 100];
                     allPixel[i][j].pressed = true;

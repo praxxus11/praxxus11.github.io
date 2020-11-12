@@ -21,6 +21,24 @@ $(document).ready(function(){
         else if (spd=='Almost Instant') {pause = 1; step = 30;}
         else if (spd=='Actually Instant') {pause=1; step=1e7;}
     });
+    $('#squareGrid').on('click', function(e) {
+        if (filling) {
+            alert('Wait for fill');
+        }
+        else {
+            gridStyle='square';
+            initialize();
+        }
+    });
+    $('#hexGrid').on('click', function(e) {
+        if (filling) {
+            alert('Wait for fill');
+        }
+        else {
+            gridStyle='hex';
+            initialize();
+        }
+    });
 });
 
 $(document).ready(function() {
