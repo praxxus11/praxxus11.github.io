@@ -168,6 +168,8 @@ async function aStar(ii, jj, targeti, targetj) {
     }
     setTimeout(function() {alert("NOT POSSIBLE");}, 100);
     filling = false;
+    if (!filling)
+        changingPix = setInterval(dynamic, 1);
 }
 
 async function aStarPath(costMat, targeti, targetj) {
