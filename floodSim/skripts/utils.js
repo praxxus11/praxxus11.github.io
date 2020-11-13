@@ -180,6 +180,20 @@ function static() {
                 }
             }
         }
+        for (let i=0; i<2; i++) {
+            for (let j=0; j<2; j++) {
+                allPixel[i][j].color = [255, 255, 255];
+                allPixel[i][j].pressed= false;
+                allPixel[i][j].type = 1;
+            }
+        }
+        for (let i=allPixel.length-2; i<allPixel.length; i++) {
+            for (let j=allPixel.length-2; j<allPixel.length; j++) {
+                allPixel[i][j].color = [255, 255, 255];
+                allPixel[i][j].pressed= false;
+                allPixel[i][j].type = 1;
+            }
+        }
     }
     else {
         alert("Wait for fill");

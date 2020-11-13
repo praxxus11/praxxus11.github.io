@@ -1,4 +1,4 @@
-function goPath(targeti, targetj) {
+async function goPath(targeti, targetj) {
     function withinBounds(i, j) {
         if (i<0||i>=allPixel.length||j<0||j>=allPixel[0].length) return false;
         if (dists[i][j]==-1) return false;
@@ -8,6 +8,7 @@ function goPath(targeti, targetj) {
         allPixel[i][j].color = [120, 90, 255];
         allPixel[i][j].draw();
     }
+    let timer = 0;
     let i = targeti, j = targetj;
     fillCol(i, j);
     while (dists[i][j]!=0) {
@@ -57,6 +58,8 @@ function goPath(targeti, targetj) {
                     else if (withinBounds(i+2,j) && dists[i+2][j]==minDist) {fillCol(i+2, j); i+=2;}
                 }
         }
+        if (timer%(step*5)==0) await sleep(pause);
+        timer++;
     }
     filling=false;
 }

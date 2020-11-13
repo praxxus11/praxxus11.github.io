@@ -3,11 +3,12 @@
     <head>
         <link href="somecss.css" rel="stylesheet" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src='skripts/ffFunction.js'></script>
-        <script src='skripts/shortestPathsFunction.js'></script>
+        <script src='skripts/utils.js'></script>
         <script src='skripts/floodJs.js'></script>
         <script src='skripts/bgrd.js'></script>
-        <script src='skripts/utils.js'></script>
+        <script src='skripts/ffFunction.js'></script>
+        <script src='skripts/shortestPathsFunction.js'></script>
+        <script src='skripts/astarFunction.js'></script>
     </head>
     <body>
         <p style="float: left; margin-right: 20px">
@@ -69,9 +70,13 @@
                 </div>
             </div>
             <div hidden visibility='hidden' id='action_buttons' style='text-align: center;'>
+                <div>Filling</div>
                 <button class='fancy_button' id='beginBfs'>Breadth First Fill!</button>
                 <button class='fancy_button' id='beginDfs'>Depth First Fill!</button>
-                <button class='fancy_button' id='beginShortestPaths'>Shortest Paths</button>
+                <br><br><br>
+                <div>Pathfinding</div>
+                <button class='fancy_button' id='beginShortestPaths'>BFS Shortest Paths</button>
+                <button class='fancy_button' id='beginAStar'>A* Shortest Paths</button>
             </div>
             <div hidden id='setting_buttons' style='text-align: center;'>
                 <div>

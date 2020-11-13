@@ -51,6 +51,8 @@ function fillTime() {
         floodFill(startX, startY);
     if (wantWhat=="shortestpaths")
         shortestPaths(startX, startY, endX, endY);
+    if (wantWhat=='astar') 
+        aStar(startX, startY, endX, endY);
 }
 
 function dynamic() {
@@ -84,6 +86,12 @@ function dynamic() {
             wantWhat = "shortestpaths";
         }
     });
+    $('#beginAStar').click(function() {
+        if (!filling) {
+            filling=true;
+            wantWhat = 'astar';
+        }
+    })
 
     ctx.fillStyle = 'rgb(200, 200, 200)';
     ctx.fillRect(0, 0, 500, 500);
