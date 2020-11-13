@@ -15,6 +15,7 @@ let gridStyle = 'square';
 // Changed by initialize and filling functions
 let changingPix; // Interval object when person changing the board (for dynamic)
 let filling = false; //Just a flag when filling
+let dynFilling = false;
 // -------------------------
 
 // Changed directly in dynamic function
@@ -70,26 +71,26 @@ function dynamic() {
     });
     $('#beginDfs').click(function() {
         if (!filling) {
-            filling=true;
             wantWhat = "dfs";
+            filling = true;
         }
     });
     $('#beginBfs').click(function() {
         if (!filling) {
-            filling=true;
             wantWhat = "bfs";
+            filling = true;
         }
     });
     $('#beginShortestPaths').click(function() {
         if (!filling) {
-            filling=true;
             wantWhat = "shortestpaths";
+            filling = true;
         }
     });
     $('#beginAStar').click(function() {
         if (!filling) {
-            filling=true;
             wantWhat = 'astar';
+            filling = true;
         }
     })
 
@@ -116,6 +117,7 @@ function initialize() {
         psuedoQorS = [];
         dists = [];
         filling = false;
+        dynFilling = false;
         drawingMode = "barrier";
         switch (gridStyle) {
             case "square":

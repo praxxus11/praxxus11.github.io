@@ -66,17 +66,26 @@
                             <span>Brush size (radius): </span>
                             <span id='brush_size'></span>
                         </label>
-                </div>
+                    </div>
                 </div>
             </div>
             <div hidden visibility='hidden' id='action_buttons' style='text-align: center;'>
                 <div>Filling</div>
                 <button class='fancy_button' id='beginBfs'>Breadth First Fill!</button>
                 <button class='fancy_button' id='beginDfs'>Depth First Fill!</button>
-                <br><br><br>
+                <br><br><hr>
                 <div>Pathfinding</div>
                 <button class='fancy_button' id='beginShortestPaths'>BFS Shortest Paths</button>
                 <button class='fancy_button' id='beginAStar'>A* Shortest Paths</button>
+                <div>
+                    <input type='range' min='0' max='2' value=1 step=1 id='brush_slider2'>
+                    <br>
+                    <label for='brush_slider2'>
+                        <span>hFactor (A*): </span>
+                        <span id='brush_size2' style='color:red;font-weight:bolder;font-size:30px;'></span>
+                        <span id='hCostmsg'>=> A* guarantee shortest path</span>
+                    </label>
+                </div>
             </div>
             <div hidden id='setting_buttons' style='text-align: center;'>
                 <div>
@@ -112,6 +121,30 @@
             
             slider.oninput = function() {
               output.innerHTML = this.value;
+            }
+            let slider2 = document.getElementById("brush_slider2");
+            let output2 = document.getElementById("brush_size2");
+            output2.innerHTML = slider2.value;
+            
+            slider2.oninput = function() {
+                let num;
+                let msg;
+                switch(parseInt(this.value)) {
+                    case 0:
+                        num = 0;
+                        msg = '=> Case: Dijkstra';
+                        break;
+                    case 1:
+                        num = 1;
+                        msg = '=> A* guarantee shortest path';
+                        break;
+                    case 2:
+                        num = 100;
+                        msg = '=> A* no guarantee shortest path, faster';
+                        break;
+                }
+                document.getElementById('hCostmsg').innerHTML = msg;
+                output2.innerHTML = num;
             }
         </script>
     </body>

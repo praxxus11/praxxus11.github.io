@@ -71,11 +71,11 @@ async function shortestPaths(ii, jj, targeti, targetj) {
         allPixel[i][j].draw();
         allPixel[i][j].type = 3;
     }
-
+    
     let timer = 0;
     psuedoQorS = [];
     psuedoQorS.push([ii, jj]);
-
+    
     dists = [];
     for (let i=0; i<allPixel.length; i++) {
         let temp = [];

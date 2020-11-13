@@ -78,9 +78,11 @@ async function aStar(ii, jj, targeti, targetj) {
         changingPix = setInterval(dynamic, 1);
         return;
     }
+    
     let timer = 0;
     let pq = new priority_queue(LEQcosts, function(a) {return (a.gCost + " " + a.hCost);});
     let costMat = [];
+    let hFactor = parseInt(document.getElementById('brush_size2').innerHTML);
 
     for (let i=0; i<allPixel.length; i++) {
         let temp = [];
@@ -90,8 +92,8 @@ async function aStar(ii, jj, targeti, targetj) {
         costMat.push(temp);
     }
     
-    pq.push(new costs(0, Math.abs(ii-targeti)+Math.abs(jj-targetj), ii, jj));
-    costMat[ii][jj].update(0, -1+Math.abs(ii-targeti)+Math.abs(jj-targetj));
+    pq.push(new costs(0, hFactor*Math.abs(ii-targeti)+Math.abs(jj-targetj), ii, jj));
+    costMat[ii][jj].update(0, hFactor*(-1+Math.abs(ii-targeti)+Math.abs(jj-targetj)));
     costMat[ii][jj].inQueue = true;
 
     while (pq.size()>0) {
@@ -123,7 +125,7 @@ async function aStar(ii, jj, targeti, targetj) {
                 }
             }
             else {
-                costMat[i][j-1].update(costMat[i][j].gCost+1, (-1+Math.abs(i-targeti)+Math.abs(j-1-targetj)));
+                costMat[i][j-1].update(costMat[i][j].gCost+1, hFactor*(-1+Math.abs(i-targeti)+Math.abs(j-1-targetj)));
                 insert(costMat[i][j-1]);
             }
         }
@@ -135,7 +137,7 @@ async function aStar(ii, jj, targeti, targetj) {
                 }
             }
             else {
-                costMat[i-1][j].update(costMat[i][j].gCost+1, (-1+Math.abs(i-1-targeti)+Math.abs(j-targetj)));
+                costMat[i-1][j].update(costMat[i][j].gCost+1, hFactor*(-1+Math.abs(i-1-targeti)+Math.abs(j-targetj)));
                 insert(costMat[i-1][j]);
             }
         }
@@ -147,7 +149,7 @@ async function aStar(ii, jj, targeti, targetj) {
                 }
             }
             else {
-                costMat[i][j+1].update(costMat[i][j].gCost+1, (-1+Math.abs(i-targeti)+Math.abs(j+1-targetj)));
+                costMat[i][j+1].update(costMat[i][j].gCost+1, hFactor*(-1+Math.abs(i-targeti)+Math.abs(j+1-targetj)));
                 insert(costMat[i][j+1]);
             }
         }
@@ -159,7 +161,7 @@ async function aStar(ii, jj, targeti, targetj) {
                 }
             }
             else {
-                costMat[i+1][j].update(costMat[i][j].gCost+1, (-1+Math.abs(i+1-targeti)+Math.abs(j-targetj)));
+                costMat[i+1][j].update(costMat[i][j].gCost+1, hFactor*(-1+Math.abs(i+1-targeti)+Math.abs(j-targetj)));
                 insert(costMat[i+1][j]);
             }
         }
