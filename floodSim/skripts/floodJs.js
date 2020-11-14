@@ -61,7 +61,7 @@ function dynamic() {
     if (blockWid==2 || blockWid==1) {
         let blocksDown = Math.round(mouseY/blockWid);
         let blocksLeft = Math.round(mouseX/blockWid);
-        let rad = (parseInt(document.getElementById('brush_size').innerHTML)/blockWid)+5;
+        let rad = Math.ceil((parseInt(document.getElementById('brush_size').innerHTML)/blockWid)+5);
         let a = Math.max(blocksLeft-rad,0);
         let b = Math.min(blocksLeft+rad,allPixel[0].length-1);
         let c = Math.max(blocksDown-rad,0);
