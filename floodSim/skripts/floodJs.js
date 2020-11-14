@@ -82,11 +82,7 @@ function dynamic() {
     else {
         ctx.fillStyle = 'rgb(200, 200, 200)';
         ctx.fillRect(0, 0, 500, 500);
-        for (let i=0; i<allPixel.length; i++) {
-            for (let j=0; j<allPixel[0].length; j++) {
-                allPixel[i][j].update(i,j);
-            }
-        }
+        updateAll();
     }
     if (filling) {
         clearInterval(changingPix);
@@ -136,11 +132,7 @@ function initialize() {
                 }
                 break;
         }
-        for (let i=0; i<allPixel.length; i++) {
-            for (let j=0; j<allPixel[0].length; j++) {
-                allPixel[i][j].update(i,j);
-            }
-        }
+        updateAll();
         changingPix = setInterval(dynamic, 1);
     }
     else {

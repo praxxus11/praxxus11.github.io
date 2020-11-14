@@ -92,6 +92,13 @@ function Pixel(pixX, pixY) {
     }
 }
 
+function updateAll() {
+    for (let i=0; i<allPixel.length; i++) {
+        for (let j=0; j<allPixel[0].length; j++) {
+            allPixel[i][j].update(i,j);
+        }
+    }
+}
 function rand() {
     function works(i, j) {
         if (i<0||i>=allPixel.length||j<0||j>=allPixel[0].length) return false;
@@ -164,6 +171,7 @@ function rand() {
                 }
             }
         }
+        updateAll();
     }
     else {
         alert("Wait for fill");
@@ -200,6 +208,7 @@ function static() {
                 allPixel[i][j].type = 1;
             }
         }
+        updateAll();
     }
     else {
         alert("Wait for fill");
