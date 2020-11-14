@@ -1,12 +1,48 @@
 $(document).ready(function(){
+    $('#barriers').click(function() {
+        drawingMode="barrier";
+    });
+    $('#startingPoint').click(function() {
+        drawingMode="startpoint";
+    });
+    $('#endingPoint').click(function() {
+        drawingMode="endpoint";
+    });
+    $('#erasebut').click(function() {
+        drawingMode="erase";
+    });
+    $('#beginDfs').click(function() {
+        if (!filling) {
+            wantWhat = "dfs";
+            filling = true;
+        }
+    });
+    $('#beginBfs').click(function() {
+        if (!filling) {
+            wantWhat = "bfs";
+            filling = true;
+        }
+    });
+    $('#beginShortestPaths').click(function() {
+        if (!filling) {
+            wantWhat = "shortestpaths";
+            filling = true;
+        }
+    });
+    $('#beginAStar').click(function() {
+        if (!filling) {
+            wantWhat = 'astar';
+            filling = true;
+        }
+    })
     $('#size_select').on('change', function (e) {
         if (!filling) {
             let usrSize = $("#size_select").val();
             if (usrSize=='10x10') {dim=10; blockWid=49;}
-            else if (usrSize=='50x50 (Recommended)') {dim=50; blockWid=9;}
+            else if (usrSize=='50x50') {dim=50; blockWid=9;}
             else if (usrSize=='100x100') {dim=100; blockWid=4;}
-            else if (usrSize=='250x250 (Not Recommended)') {dim=250; blockWid=2;}
-            else if (usrSize=='500x500 (!!!WARNING!!!)') {dim=500; blockWid=1;}
+            else if (usrSize=='250x250') {dim=250; blockWid=2;}
+            else if (usrSize=='500x500') {dim=500; blockWid=1;}
             initialize();
         }
         else {

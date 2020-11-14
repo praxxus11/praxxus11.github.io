@@ -23,7 +23,7 @@ function Pixel(pixX, pixY) {
     // 4: end square for shortest paths, 3: a barrier or visited square, 
     // 2: start square, 1: blank sqaure
     this.type = 1;
-    this.update = function() {
+    this.update = function(i,j) {
         if (mouseAffectingPix(this.x, this.y)) {
             if (clicking) {
                 if (drawingMode=="barrier") {
@@ -46,6 +46,8 @@ function Pixel(pixX, pixY) {
                     this.pressed = false;
                     this.type = 1;
                 }
+                if (blockWid==2 || blockWid==1) 
+                    delete halfCol[[i,j]];
             }
             else if (!this.pressed) {
                 if (drawingMode=="barrier")
@@ -56,10 +58,14 @@ function Pixel(pixX, pixY) {
                     this.color = [225, 225, 255];
                 else if (drawingMode=='erase')
                     this.color = [235, 235, 235];
+                if (blockWid==2 || blockWid==1)
+                    halfCol[[i,j]]=1;
             }
         }
         else if (!this.pressed) {
             this.color = [255, 255, 255];   
+            if (blockWid==2 || blockWid==1) 
+                delete halfCol[[i,j]];
         }
         this.draw();
     };
@@ -199,3 +205,4 @@ function static() {
         alert("Wait for fill");
     }
 }
+

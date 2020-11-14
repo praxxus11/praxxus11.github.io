@@ -56,49 +56,36 @@ function fillTime() {
         aStar(startX, startY, endX, endY);
 }
 
+let halfCol = {};
 function dynamic() {
-    $('#barriers').click(function() {
-        drawingMode="barrier";
-    });
-    $('#startingPoint').click(function() {
-        drawingMode="startpoint";
-    });
-    $('#endingPoint').click(function() {
-        drawingMode="endpoint";
-    });
-    $('#erasebut').click(function() {
-        drawingMode="erase";
-    });
-    $('#beginDfs').click(function() {
-        if (!filling) {
-            wantWhat = "dfs";
-            filling = true;
+    if (blockWid==2 || blockWid==1) {
+        let blocksDown = Math.round(mouseY/blockWid);
+        let blocksLeft = Math.round(mouseX/blockWid);
+        let rad = (parseInt(document.getElementById('brush_size').innerHTML)/blockWid)+5;
+        let a = Math.max(blocksLeft-rad,0);
+        let b = Math.min(blocksLeft+rad,allPixel[0].length-1);
+        let c = Math.max(blocksDown-rad,0);
+        let d = Math.min(blocksDown+rad,allPixel.length-1);
+        for (let i=a; i<b; i++) {
+            for (let j=c; j<d; j++) {
+                allPixel[i][j].update(i,j);
+            }
         }
-    });
-    $('#beginBfs').click(function() {
-        if (!filling) {
-            wantWhat = "bfs";
-            filling = true;
+        let keyss = Object.keys(halfCol);
+        for (let i=0; i<keyss.length; i++) {
+            let key = keyss[i];
+            let ii = key.split(',')[0];
+            let jj = key.split(',')[1];
+            allPixel[ii][jj].update(ii,jj);
         }
-    });
-    $('#beginShortestPaths').click(function() {
-        if (!filling) {
-            wantWhat = "shortestpaths";
-            filling = true;
-        }
-    });
-    $('#beginAStar').click(function() {
-        if (!filling) {
-            wantWhat = 'astar';
-            filling = true;
-        }
-    })
-
-    ctx.fillStyle = 'rgb(200, 200, 200)';
-    ctx.fillRect(0, 0, 500, 500);
-    for (let i=0; i<allPixel.length; i++) {
-        for (let j=0; j<allPixel[0].length; j++) {
-            allPixel[i][j].update();
+    }
+    else {
+        ctx.fillStyle = 'rgb(200, 200, 200)';
+        ctx.fillRect(0, 0, 500, 500);
+        for (let i=0; i<allPixel.length; i++) {
+            for (let j=0; j<allPixel[0].length; j++) {
+                allPixel[i][j].update(i,j);
+            }
         }
     }
     if (filling) {
@@ -116,6 +103,7 @@ function initialize() {
         allPixel = [];
         psuedoQorS = [];
         dists = [];
+        halfCol = {};
         filling = false;
         dynFilling = false;
         drawingMode = "barrier";
@@ -147,6 +135,11 @@ function initialize() {
                     allPixel.push(temp);
                 }
                 break;
+        }
+        for (let i=0; i<allPixel.length; i++) {
+            for (let j=0; j<allPixel[0].length; j++) {
+                allPixel[i][j].update(i,j);
+            }
         }
         changingPix = setInterval(dynamic, 1);
     }
