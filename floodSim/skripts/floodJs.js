@@ -63,9 +63,9 @@ function dynamic() {
         let blocksLeft = Math.round(mouseX/blockWid);
         let rad = Math.ceil((parseInt(document.getElementById('brush_size').innerHTML)/blockWid)+5);
         let a = Math.max(blocksLeft-rad,0);
-        let b = Math.min(blocksLeft+rad,allPixel[0].length-1);
+        let b = Math.min(blocksLeft+rad,allPixel[0].length);
         let c = Math.max(blocksDown-rad,0);
-        let d = Math.min(blocksDown+rad,allPixel.length-1);
+        let d = Math.min(blocksDown+rad,allPixel.length);
         for (let i=a; i<b; i++) {
             for (let j=c; j<d; j++) {
                 allPixel[i][j].update(i,j);
