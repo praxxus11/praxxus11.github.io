@@ -13,7 +13,7 @@ let obl = false;
 let oblClicked = false;
 let bGrav = false;
 let gGravClicked = false;
-let numBalls = 77;
+let numBalls = 88;
 
 function currPos(event) {
     mouseX = event.offsetX;
@@ -280,7 +280,6 @@ function playing() {
     }
 }
 function start() {
-    numBalls++;
     for (let i=0; i<numBalls; i++) {
         let temp = [];
         for (let j=0; j<numBalls; j++) {
@@ -288,13 +287,9 @@ function start() {
         }
         colliding.push(temp);
     }
-    numBalls--;
     for (let i=0; i<numBalls; i++) {
         let col = `rgb(${rand(160,255)}, ${rand(160,255)}, ${rand(160,255)})`;
-        arr.push(new Particle(rand(30,window.innerWidth-50), rand(30,window.innerHeight-50), rand(-5, 6), rand(-5, 5), rand(3, 10), col));
+        arr.push(new Particle(rand(30,window.innerWidth-50), rand(30,window.innerHeight-50), rand(-5, 6), rand(-5, 5), rand(2, 14), col));
     }
-    numBalls++;
-    let col = `rgb(${rand(160,255)}, ${rand(160,255)}, ${rand(160,255)})`;
-    arr.push(new Particle(rand(30,window.innerWidth-50), rand(30,window.innerHeight-50), rand(-5, 6), rand(-5, 5), rand(150, 170), col));
     playing();
 }
