@@ -102,7 +102,7 @@ function Particle(x, y, dy, dx, rad, col) {
         if (this.dx>0) this.dx-=0.004*mult;
         else this.dx+=0.004*mult;
         
-        if (clicking) {
+        if (clicking && !infoScreen) {
             let grav = getAccels(1, 29000, Math.pow(this.rad,2), mouseX, mouseY, this.x, this.y);
             this.dx += grav[0];
             this.dy += grav[1];
