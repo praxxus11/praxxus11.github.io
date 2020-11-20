@@ -5,14 +5,17 @@ let mouseY;
 let clicking;
 let arr = [];
 let colliding = [];
+let befVelc = [];
 let infoScreen = false; 
 let gravOn = false;
-let clicked = false;
+let infoClicked = false;
 let gravClicked = false;
 let obl = false;
 let oblClicked = false;
 let bGrav = false;
 let gGravClicked = false;
+let edu = false;
+let eduClicked = false;
 let numBalls = 88;
 
 function currPos(event) {
@@ -42,7 +45,7 @@ function calcColl(ax, ay, bx, by, adx, ady, bdx, bdy, ma, mb) {
     if (ady==0) ady+=1e-7;
     if (bdx==0) bdx+=1e-7;
     if (bdy==0) bdy+=1e-7;
-    ma=ma*ma;
+    ma=ma*ma;2
     mb=mb*mb;
     let dx = bx-ax;
     let dy = by-ay;
@@ -79,13 +82,27 @@ function calcColl(ax, ay, bx, by, adx, ady, bdx, bdy, ma, mb) {
     return [augMagA*Math.cos(newAngA), -augMagA*Math.sin(newAngA), augMagB*Math.cos(newAngB), -augMagB*Math.sin(newAngB)];
 }
 
-function Particle(x, y, dy, dx, rad, col) {
+function arrow(fromx, fromy, tox, toy) {
+    let headlen = 7;
+    let dx = tox - fromx;
+    let dy = toy - fromy;
+    let angle = Math.atan2(dy, dx);
+    ctx.moveTo(fromx, fromy);
+    ctx.lineTo(tox, toy);
+    ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+    ctx.moveTo(tox, toy);
+    ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+}
+
+function Particle(x, y, dy, dx, rad, col, ind) {
     this.x = x;
     this.y = y;
     this.dy = dy;
     this.dx = dx;
     this.rad = rad;
     this.col = col;
+    this.ind = ind;
+    const MAXDIST = Math.sqrt(Math.pow(cvs.height,2)+Math.pow(cvs.width,2));
     this.update = function() {
         if (this.y+this.rad>=cvs.height && this.dy>=0) this.dy*=-0.7;
         else if (this.y-this.rad<=0 && this.dy<=0) this.dy*=-0.7;
@@ -119,6 +136,34 @@ function Particle(x, y, dy, dx, rad, col) {
         ctx.fillStyle = this.col;
         ctx.fill();
         ctx.closePath();
+        
+        if (edu) {
+            ctx.strokeStyle = 'white';
+            ctx.beginPath();
+            arrow(this.x, this.y, this.x+this.dx*5, this.y+this.dy*5);
+            ctx.stroke();
+
+            let forceX = Math.min(100, Math.abs(this.dx-befVelc[this.ind][0])*300);
+            let forceY = Math.min(100, Math.abs(this.dy-befVelc[this.ind][1])*300);
+            if (this.dx-befVelc[this.ind][0]<0) forceX*=-1;
+            if (this.dy-befVelc[this.ind][1]<0) forceY*=-1;
+            ctx.strokeStyle = 'yellow';
+            ctx.beginPath();
+            arrow(this.x, this.y, this.x+forceX, this.y+forceY);
+            ctx.stroke();
+
+            befVelc[this.ind][0]=this.dx;
+            befVelc[this.ind][1]=this.dy;
+
+            if (clicking && !infoScreen) {
+                let fact = Math.min(0.7,Math.sqrt(Math.pow(this.x-mouseX,2)+Math.pow(this.y-mouseY,2))/MAXDIST);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.7-fact})`;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(mouseX, mouseY);
+                ctx.stroke();
+            }
+        }
     };
 }
 
@@ -206,46 +251,38 @@ function playing() {
     ctx.fillText("ⓘ", 5, 40);
     if (mouseX>0 && mouseX<45 && mouseY>0 && mouseY<45 && clicking) {
         infoScreen = true;
-        if (clicked) {
+        if (infoClicked) {
             infoScreen = false;
         }
     }
     if (clicking) {
-        if (mouseX>160 && mouseX<185 && mouseY>75 && mouseY<100 && clicked) {
-            gravOn = true;
-            if (gravClicked) {
-                gravOn = false;
-            }
+        if (mouseX>160 && mouseX<185 && mouseY>75 && mouseY<100 && infoClicked) {
+            gravOn = (gravClicked?false:true);
         }
-        if (mouseX>190 && mouseX<190+25 && mouseY>115 && mouseY<115+25 && clicked) {
-            obl = true;
-            if (oblClicked) {
-                obl = false;
-            }
+        if (mouseX>190 && mouseX<190+25 && mouseY>115 && mouseY<115+25 && infoClicked) {
+            obl = (oblClicked?false:true);
         }
-        if (mouseX>170 && mouseX<170+25 && mouseY>155 && mouseY<155+25 && clicked) {
-            bGrav = true;
-            if (bGravClicked) {
-                bGrav = false;
-            }
+        if (mouseX>170 && mouseX<170+25 && mouseY>155 && mouseY<155+25 && infoClicked) {
+            bGrav = (bGravClicked?false:true);
+        }
+        if (mouseX>170 && mouseX<170+25 && mouseY>195 && mouseY<195+25 && infoClicked) {
+            edu = (eduClicked?false:true);
         }
     }
-    arr.forEach((ball) => ball.update());
     for (let i=0; i<numBalls; i++) for (let j=0; j<numBalls; j++) interaction(i, j);
+    arr.forEach((ball) => ball.update());
     if (!clicking) {
-        if (infoScreen) clicked = true;
-        else clicked = false;
-        if (gravOn) gravClicked = true;
-        else gravClicked = false;
-        if (obl) oblClicked = true;
-        else oblClicked = false;
-        if (bGrav) bGravClicked = true;
-        else bGravClicked = false;
+        infoClicked = infoScreen;
+        gravClicked = gravOn;
+        oblClicked = obl;
+        bGravClicked = bGrav;
+        eduClicked = edu;
     }
 
     if (infoScreen) {
+        ctx.strokeStyle = 'black';
         ctx.fillStyle = "rgb(100,100,100)";
-        ctx.fillRect(30, 30, 300, 170);
+        ctx.fillRect(30, 30, 300, 200);
         ctx.fillStyle = 'white';
         ctx.font ='20px Arial';
         ctx.fillText("Click around the screen", 50, 60);
@@ -265,6 +302,11 @@ function playing() {
         ctx.rect(170, 155, 25, 25);
         ctx.stroke();
 
+        ctx.fillText("Education Mode", 50, 210);
+        ctx.beginPath();
+        ctx.rect(170, 195, 25, 25);
+        ctx.stroke();
+
         if (gravOn) {
             ctx.fillStyle = 'red';
             ctx.fillRect(161,76,23,23);
@@ -277,6 +319,10 @@ function playing() {
             ctx.fillStyle = 'red';
             ctx.fillRect(171,156,23,23);
         }
+        if (edu) {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(171,196,23,23);
+        }
     }
 }
 function start() {
@@ -286,10 +332,11 @@ function start() {
             temp.push(false);
         }
         colliding.push(temp);
+        befVelc.push([0,0]);
     }
     for (let i=0; i<numBalls; i++) {
         let col = `rgb(${rand(160,255)}, ${rand(160,255)}, ${rand(160,255)})`;
-        arr.push(new Particle(rand(30,window.innerWidth-50), rand(30,window.innerHeight-50), rand(-5, 6), rand(-5, 5), rand(2, 14), col));
+        arr.push(new Particle(rand(30,window.innerWidth-50), rand(30,window.innerHeight-50), rand(-5, 6), rand(-5, 5), rand(2, 14), col, i));
     }
     playing();
 }
