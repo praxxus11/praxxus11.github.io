@@ -242,6 +242,9 @@ function interaction(i, j) {
     }
 }
 
+let befMs = 0;
+let befMsCt = 0;
+let fps = (1000/(performance.now()-befMs+1)).toFixed(0);
 function playing() {
     requestAnimationFrame(playing);
     ctx.fillStyle = 'black'
@@ -324,6 +327,13 @@ function playing() {
             ctx.fillRect(171,196,23,23);
         }
     }
+    ctx.font = "20px Arial";
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillText(`FPS: ${fps}`, cvs.width-80, 30, 100);
+    if (befMsCt++%10==0) {
+        fps = (1000/(performance.now()-befMs)).toFixed(0);
+    }
+    befMs = performance.now();
 }
 function start() {
     for (let i=0; i<numBalls; i++) {
