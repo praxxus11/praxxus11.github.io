@@ -1,21 +1,22 @@
 const cvs = document.getElementById('5263');
 const ctx = cvs.getContext('2d');
+const paramlink = 'https://gist.githubusercontent.com/praxxus11/7c19a855ed3cd6521d8117d497e2abbd/raw/456b6a3caf726fa5658a46dc848651d60f8e6f84/parameters.txt';
+const normlink = 'https://gist.githubusercontent.com/praxxus11/efc4fcd9a2bef87bdd317db3713e92df/raw/c13279d9d783ba5039c6141712694b8bc07524c9/norm.txt';
 
+let mulData;
+let normData;
 let mode = true;
 let clicking = false;
 let mouseX;
 let mouseY;
 
-function mouseDn(event)
-{
+function mouseDn(event) {
     clicking = true;
 }
-function mouseup(event)
-{
+function mouseup(event) {
     clicking = false;
 }
-function currPos(event)
-{
+function currPos(event) {
     mouseX = event.offsetX;
     mouseY = event.offsetY;
 }
@@ -23,132 +24,99 @@ document.addEventListener('mousemove', currPos);
 document.addEventListener('mousedown', mouseDn);
 document.addEventListener('mouseup', mouseup);
 
-function distance(x1, y1, x2, y2)
-{
+function distance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
 }
-function Pixel(pixX, pixY)
-{
+
+function Pixel(pixX, pixY) {
     this.x = pixX;
     this.y = pixY;
     this.color = 0;
-    this.update = function()
-    {
+    this.update = function() {
         let dist = distance(mouseX, mouseY, this.x+10, this.y+10);
-        if (mode)
-        {
-            if (dist < 50)
-            {
-                if (dist < 15)
-                {
+        if (mode) {
+            if (dist < 50) {
+                if (dist < 15) {
                     this.color = 255;
                 }
-                else 
-                {
+                else {
                     let col = (50 - dist) / 50 * 255;
-                    if (col > this.color) 
-                    {
+                    if (col > this.color) {
                         this.color = col;
                     }
                 }
             }
         }
-        else
-        {
-            if (dist < 150)
-            {
+        else {
+            if (dist < 150) {
                 this.color = 0;
             }
         }
     };
 }
 let pixels = [];
-for (let i = 0; i < 28; i++)
-{
+for (let i = 0; i < 28; i++) {
     let pix = []
-    for (let j = 0; j < 28; j++)
-    {
+    for (let j = 0; j < 28; j++) {
         pix.push(new Pixel(20*i, 20*j));
     }
     pixels.push(pix);
 }
 
 //calculates the values AND prints it too
-function frontProp(arr)
-{
-    let paramlink = 'https://gist.githubusercontent.com/praxxus11/7c19a855ed3cd6521d8117d497e2abbd/raw/456b6a3caf726fa5658a46dc848651d60f8e6f84/parameters.txt';
-    fetch(paramlink)
-        .then(response => response.text())
-        .then(function(data) 
-        {   
-            let params = data.split(',').map(x => Number(x));
-            let us = nj.concatenate(1, nj.array(arr));
-            params = nj.array(params);
-            theta1 = params.slice([0, 19625]).reshape(25, 785);
-            theta2 = params.slice([19625, 20275]).reshape(25, 26);
-            theta3 = params.slice([20275, 20535]).reshape(10, 26);
-            let a2 = nj.concatenate(1, nj.sigmoid(nj.dot(theta1, us)));
-            let a3 = nj.concatenate(1, nj.sigmoid(nj.dot(theta2, a2)));
-            let a4 = nj.sigmoid(nj.dot(theta3, a3));
-            maxi = 1;
-            for (let i = 0; i < 10; i++)
-            {
-                if (a4.get(i) > a4.get(maxi))
-                {
-                    maxi = i;
-                }
-            }
-            ctx.fillStyle = 'white';
-            ctx.fillRect(560, 120, 270, 560)
-            ctx.fillRect(567, 0, 33, 120);
-            ctx.fillRect(600, 0, 150, 20);
-            ctx.fillRect(600, 60, 150, 20);
-            ctx.font = '30px Impact';
-            for (let i = 0; i<10; i++)
-            {
-                ctx.fillStyle = i == maxi ? 'green' : 'red';
-                let text = i.toString() + ": " + (a4.get(i)*100).toFixed(4) + "%";
-                ctx.fillText(text, 600, 170+i*40);
-            }
-        });
+function frontProp(arr) {
+    let params = mulData.split(',').map(x => Number(x));
+    let us = nj.concatenate(1, nj.array(arr));
+    params = nj.array(params);
+    theta1 = params.slice([0, 19625]).reshape(25, 785);
+    theta2 = params.slice([19625, 20275]).reshape(25, 26);
+    theta3 = params.slice([20275, 20535]).reshape(10, 26);
+    let a2 = nj.concatenate(1, nj.sigmoid(nj.dot(theta1, us)));
+    let a3 = nj.concatenate(1, nj.sigmoid(nj.dot(theta2, a2)));
+    let a4 = nj.sigmoid(nj.dot(theta3, a3));
+    maxi = 1;
+    for (let i = 0; i < 10; i++) {
+        if (a4.get(i) > a4.get(maxi)) {
+            maxi = i;
+        }
+    }
+    ctx.fillStyle = 'white';
+    ctx.fillRect(560, 120, 270, 560)
+    ctx.fillRect(567, 0, 33, 120);
+    ctx.fillRect(600, 0, 150, 20);
+    ctx.fillRect(600, 60, 150, 20);
+    ctx.font = '30px Impact';
+    for (let i = 0; i<10; i++) {
+        ctx.fillStyle = i == maxi ? 'green' : 'red';
+        let text = i.toString() + ": " + (a4.get(i)*100).toFixed(4) + "%";
+        ctx.fillText(text, 600, 170+i*40);
+    }
 }
-function calcu(arrr)
-{
+
+function calcu(arrr) {
     arr = []
-    for (let pix of arrr)
-    {
-        for (let p of pix)
-        {
+    for (let pix of arrr) {
+        for (let p of pix) {
             arr.push(p);
         }
     }
-    let normlink = 'https://gist.githubusercontent.com/praxxus11/efc4fcd9a2bef87bdd317db3713e92df/raw/c13279d9d783ba5039c6141712694b8bc07524c9/norm.txt';
-    fetch(normlink)
-        .then(response => response.text())
-        .then(function(data) 
-        {   
-            norm = data.split(',').map(x => Number(x));
-            for (let i=0; i<arr.length; i++)
-            {
-                if (norm[i * 2 + 1] != 0)
-                {
-                    arr[i] = (arr[i] - norm[i * 2]) / norm[i * 2 + 1]
-                }
-                else
-                {
-                    arr[i] = 0;
-                }
-                if (arr[i] > 100)
-                {
-                    arr[i] = 0;
-                }
-            }
-            frontProp(arr);
-        });
+    norm = normData.split(',').map(x => Number(x));
+    for (let i=0; i<arr.length; i++) {
+        if (norm[i * 2 + 1] != 0) {
+            arr[i] = (arr[i] - norm[i * 2]) / norm[i * 2 + 1]
+        }
+        else {
+            arr[i] = 0;
+        }
+        if (arr[i] > 100) {
+            arr[i] = 0;
+        }
+    }
+    frontProp(arr);
 }
-let textspace = 0;
-function draw()
-{
+
+function draw() {
+    window.requestAnimationFrame(draw);
     //Drawing the canvase itself
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, 560, 560);
@@ -166,34 +134,26 @@ function draw()
     ctx.fillText('Paint', 640, 110);
 
     //Check if the mouse hits the buttons
-    if (clicking)
-    {
-        if (mouseX > 600 && mouseX < 750 && mouseY > 20 && mouseY < 60)
-        {
+    if (clicking) {
+        if (mouseX > 600 && mouseX < 750 && mouseY > 20 && mouseY < 60) {
             mode = false;
         }
-        if (mouseX > 600 && mouseX < 750 && mouseY > 80 && mouseY < 120)
-        {
+        if (mouseX > 600 && mouseX < 750 && mouseY > 80 && mouseY < 120) {
             mode = true;
         }
     }
 
     //Update pixel values
-    if (clicking && mouseX < 560)
-    {
-        for (let pix of pixels)
-        {
-            for (let p of pix)
-            {
+    if (clicking && mouseX < 560) {
+        for (let pix of pixels) {
+            for (let p of pix) {
                 p.update();
             }
         }
     }
     //Drawing in the pixel values
-    for (let pix of pixels)
-    {
-        for (let p of pix)
-        {
+    for (let pix of pixels) {
+        for (let p of pix) {
             ctx.fillStyle = `rgb(${p.color}, ${p.color}, ${p.color})`;
             ctx.fillRect(p.x, p.y, 20, 20);
         }
@@ -205,8 +165,7 @@ function draw()
     ctx.fillRect(100, 100, 360, 1);
     ctx.fillRect(460, 100, 1, 360);
     //Drawing the circle around the mouse
-    if (mouseX < 560)
-    {
+    if (mouseX < 560) {
         let rad = mode ? 30 : 150;
         ctx.beginPath();
         ctx.setLineDash([1, 0]);
@@ -218,20 +177,23 @@ function draw()
 
     //Checking the pixel values
     let pixVals = []
-    for (let i = 0; i < 28; i++)
-    {
+    for (let i = 0; i < 28; i++) {
         pixV = [];
-        for (let j = 0; j < 28; j++)
-        {
+        for (let j = 0; j < 28; j++) {
             pixV.push(pixels[j][i].color);
         }
         pixVals.push(pixV);
     }
-    if (textspace % 10 == 0)
-    {
+    if (normData && mulData)
         calcu(pixVals);
-    }
-    textspace++;
 }
 
-let start = setInterval(draw, 1);
+window.onload = function() {
+    fetch(normlink).then(response=>response.text()).then(function(data) {
+        normData=data;
+    })
+    .then(() => fetch(paramlink).then(response=>response.text()).then(function(data) {
+        mulData=data;
+    }));
+    window.requestAnimationFrame(draw);
+}
