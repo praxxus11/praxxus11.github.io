@@ -87,7 +87,10 @@ function frontProp(arr) {
     ctx.fillRect(600, 60, 150, 20);
     ctx.font = '30px Impact';
     for (let i = 0; i<10; i++) {
-        ctx.fillStyle = i == maxi ? 'green' : 'red';
+        ctx.fillStyle = 'red';
+        if (i==maxi) {
+            ctx.fillStyle = `rgb(${128*(1-a4.get(maxi))}, ${128*a4.get(maxi)}, 0)`
+        }
         let text = i.toString() + ": " + (a4.get(i)*100).toFixed(4) + "%";
         ctx.fillText(text, 600, 170+i*40);
     }
