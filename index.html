@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>
-            Eric's Site
-        </title>
+        <link rel="stylesheet" href='style.css'>
     </head>
     <body>
-        <div style='text-align:center;'>
-            <h1>
-                Try These
-            </h1>
-            <a href='https://github.com/praxxus11/ericsite'><strong>Github Link</strong></a>
-            <br><br>
-            <div>
-                Number recognizer
-                <a href='num_rec.html'>Num Rec</a>
+        </nav>
+        <div id="page1">
+            <div id="top-nav">
+                <a class="hoverC1" href="#page1">Home</a>
+                <a class="hoverC1" href="#page2">Projects</a>
             </div>
-            <div>
-                Conway's game of life
-                <a href='conway.html'>Game of life</a>
+            <div class="heading-cont">
+                <h1>Eric's Site</h1>
+                <p>This is my site. Scroll down for <strong>games</strong>.
+                    Designed by Eric Huang.</p>
             </div>
-            <div>
-                Drosera Hydrid
-                <a href='/ericsite/drosera_cross/html/main_drosera.html'>Drosera</a>
-            </div>
-            <div>
-                FloodFill Sim
-                <a href='/ericsite/floodSim/floodInd.html'>FloodFill</a>
-            </div>
-            <div>
-                Gravity Point
-                <a href='/ericsite/grav/gravInd.html'>Grav</a>
-            </div>
-            <hr>
-            <div>
-                <h2>Play music</h2>
-                <div>
-                    Nocturne Op 37 No 1
-                    <br>
-                    <audio controls>
-                        <source src='/ericsite/Graphix/noct.mp3'>
-                    </audio>
-                </div>
-                <div>
-                    Scriabin Etude Op. 2, No.1 
-                    <br>
-                    <audio controls>
-                        <source src='/ericsite/Graphix/scriban.mp3'>
-                    </audio>
-                </div>
-                <div>
-                    Nocturne Op 48 No 2
-                    <br>
-                    <audio controls>
-                        <source src='/ericsite/Graphix/noct2.mp3'>
-                    </audio>
-                </div>
-            </div>
-            <br>
+            <img id="bgrd-img" src='Imgs/plantd.png'>
         </div>
+        <div id="page2">
+            <div class='card-cont'>
+                <a href="num_rec.html" target="blank">
+                    <div class="project-cont-card">
+                        <h2>Number Recognizer</h2>
+                        <img src='Imgs/numrec.jpg'>
+                    </div>
+                </a>
+                <a href="conway.html" target="blank">
+                    <div class="project-cont-card">
+                        <h2>Game of Life</h2>
+                        <img src='Imgs/gof.jpg'>
+                    </div>
+                </a>                
+                <a href="/ericsite/drosera_cross/html/main_drosera.html" target="blank">
+                    <div class="project-cont-card">
+                        <h2>Drosera Hybrid</h2>
+                        <img src='Imgs/dros.jpg'>
+                    </div>
+                </a>                
+                <a href="/ericsite/floodSim/floodInd.html" target="blank">
+                    <div class="project-cont-card">
+                        <h2>Graph Sim</h2>
+                        <img src='Imgs/floodf.jpg'>
+                    </div>
+                </a>                
+                <a href="/ericsite/grav/gravInd.html" target="blank">
+                    <div class="project-cont-card">
+                        <h2>Gravity Balls</h2>
+                        <img src='Imgs/ball.jpg'>
+                    </div>
+                </a>
+            </div>
+            <div class="project-title-cont">
+                <h1>Projects</h1>
+                <p>These are projects.</p>
+            </div>
+        </div>
+        <script src="script.js"></script>
     </body>
 </html>
