@@ -34,8 +34,8 @@ document.addEventListener('mouseup', mouseup);
 
 window.onload = function() {
     cvs = document.getElementById("canv");
-    cvs.width = window.innerWidth-20;
-    cvs.height = window.innerHeight-30;
+    cvs.width = window.innerWidth-2;
+    cvs.height = window.innerHeight-2;
     ctx = cvs.getContext("2d");
     start();
 }
